@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="GymApp" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="apple-touch-icon" href="./icon-192.png" />
+  <title>GymApp</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    html, body, #root { height: 100%; background: #0a0a0a; -webkit-tap-highlight-color: transparent; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif; overscroll-behavior: none; }
+    .safe-top { padding-top: max(env(safe-area-inset-top), 12px); }
+    .safe-bottom { padding-bottom: max(env(safe-area-inset-bottom), 12px); }
+    input, select, textarea { font-size: 16px; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-in { animation: fadeIn 0.25s ease-out; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel" data-presets="react">
+    const { useState, useEffect, useMemo } = React;
+
+    // ============== UTILS ==============
+    const fmtMoney = (n) => '$' + Number(n || 0).toLocaleString('es-AR');
+    const todayISO = () => new Date().toISOString().slice(0,10);
+    const monthName = (idx) => ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'][idx];
+    const fmtDate = (iso) => {
+      if (!iso) return '';
+      const d = new Date(iso + 'T00:00:00');
+      return `${d.getDate()} ${monthName(d.getMonth())} ${d.getFullYear()}`;
+    };
+    const monthKey = (iso) => iso ? iso.slice(0,7) : '';
+    const currentMonthKey = () => todayISO().slice(0,7);
+    const uid = () => Math.random().toString(36).slice(2,10);
+    const daysBetween = (a, b) => Math.round((new Date(b) - new Date(a)) / 86400000);
+
+    // ============== SEED DATA ==============
+    const seedData = () => ({
+      gym: {
+        name: 'Iron Gym',
+        address: 'Av. Siempre Viva 742',
+        phone: '+54 11 5555-5555',
+        adminPassword: 'admin123',
+        monthlyFee: 15000,
+      },
+      clients: [
+        { id: 'c1', name: 'Juan Pérez', dni: '30111222', email: 'juan@mail.com', phone: '1144556677', joinDate: '2025-01-15', plan: 'Mensual', monthlyFee: 15000, routineId: 'r1', active: true, notes: 'Objetivo: ganar masa muscular.' },
+        { id: 'c2', name: 'María González', dni: '32555444', email: 'maria@mail.com', phone: '1133221100', joinDate: '2025-03-10', plan: 'Mensual', monthlyFee: 15000, routineId: 'r2', active: true, notes: 'Trabaja zona lumbar con cuidado.' },
+        { id: 'c3', name: 'Carlos Ruiz', dni: '28999888', email: 'carlos@mail.com', phone: '1199887766', joinDate: '2024-11-01', plan: 'Mensual', monthlyFee: 15000, routineId: 'r1', active: true, notes: '' },
+        { id: 'c4', name: 'Lucía Fernández', dni: '35222111', email: 'lucia@mail.com', phone: '1166554433', joinDate: '2026-02-20', plan: 'Mensual', monthlyFee: 15000, routineId: 'r2', active: true, notes: 'Recuperación de lesión de rodilla.' },
+      ],
+      routines: [
+        { id: 'r1', name: 'Fuerza - Principiante', description: 'Rutina de 3 días para iniciar en el entrenamiento de fuerza.', days: [
+          { day: 'Lunes', focus: 'Pecho y Tríceps', exercises: [
+            { name: 'Press banca', sets: 4, reps: '10-12', rest: '90s' },
+            { name: 'Press inclinado mancuernas', sets: 3, reps: '10-12', rest: '90s' },
+            { name: 'Fondos asistidos', sets: 3, reps: '12', rest: '60s' },
+            { name: 'Extensión tríceps polea', sets: 3, reps: '12-15', rest: '60s' },
+          ]},
+          { day: 'Miércoles', focus: 'Espalda y Bíceps', exercises: [
+            { name: 'Dominadas asistidas', sets: 4, reps: '8-10', rest: '90s' },
+            { name: 'Remo con barra', sets: 4, reps: '10-12', rest: '90s' },
+            { name: 'Curl con barra', sets: 3, reps: '12', rest: '60s' },
+            { name: 'Curl martillo', sets: 3, reps: '12 c/brazo', rest: '60s' },
+          ]},
+          { day: 'Viernes', focus: 'Piernas', exercises: [
+            { name: 'Sentadilla', sets: 4, reps: '10-12', rest: '120s' },
+            { name: 'Prensa', sets: 4, reps: '12', rest: '90s' },
+            { name: 'Curl femoral', sets: 3, reps: '12-15', rest: '60s' },
+            { name: 'Gemelos de pie', sets: 4, reps: '15', rest: '45s' },
+          ]},
+        ]},
+        { id: 'r2', name: 'Hipertrofia - Intermedio', description: 'Rutina de 4 días enfocada en aumento de masa muscular.', days: [
+          { day: 'Lunes', focus: 'Pecho', exercises: [
+            { name: 'Press banca', sets: 5, reps: '6-8', rest: '120s' },
+            { name: 'Aperturas con mancuernas', sets: 4, reps: '10-12', rest: '75s' },
+            { name: 'Cruces en polea', sets: 3, reps: '12-15', rest: '60s' },
+          ]},
+          { day: 'Martes', focus: 'Espalda', exercises: [
+            { name: 'Peso muerto', sets: 5, reps: '5', rest: '180s' },
+            { name: 'Dominadas', sets: 4, reps: '8-10', rest: '90s' },
+            { name: 'Remo en T', sets: 4, reps: '10-12', rest: '75s' },
+          ]},
+          { day: 'Jueves', focus: 'Piernas y Glúteos', exercises: [
+            { name: 'Sentadilla', sets: 5, reps: '6-8', rest: '150s' },
+            { name: 'Hip thrust', sets: 4, reps: '10-12', rest: '90s' },
+            { name: 'Zancadas con mancuernas', sets: 3, reps: '12 c/pierna', rest: '60s' },
+          ]},
+          { day: 'Viernes', focus: 'Hombros y Brazos', exercises: [
+            { name: 'Press militar', sets: 4, reps: '8-10', rest: '90s' },
+            { name: 'Elevaciones laterales', sets: 4, reps: '12-15', rest: '60s' },
+            { name: 'Curl predicador', sets: 3, reps: '10-12', rest: '60s' },
+            { name: 'Press francés', sets: 3, reps: '10-12', rest: '60s' },
+          ]},
+        ]},
+      ],
+      payments: [
+        { id: 'p1', clientId: 'c1', amount: 15000, date: '2026-03-05', concept: 'Cuota Marzo', method: 'Efectivo' },
+        { id: 'p2', clientId: 'c1', amount: 15000, date: '2026-04-04', concept: 'Cuota Abril', method: 'Transferencia' },
+        { id: 'p3', clientId: 'c1', amount: 15000, date: '2026-05-06', concept: 'Cuota Mayo', method: 'Efectivo' },
+        { id: 'p4', clientId: 'c2', amount: 15000, date: '2026-03-12', concept: 'Cuota Marzo', method: 'Transferencia' },
+        { id: 'p5', clientId: 'c2', amount: 15000, date: '2026-04-10', concept: 'Cuota Abril', method: 'Transferencia' },
+        { id: 'p6', clientId: 'c3', amount: 15000, date: '2026-04-02', concept: 'Cuota Abril', method: 'Efectivo' },
+        { id: 'p7', clientId: 'c4', amount: 15000, date: '2026-05-10', concept: 'Cuota Mayo', method: 'Transferencia' },
+      ],
+    });
+
+    // ============== STORAGE ==============
+    const STORAGE_KEY = 'gymapp_data_v1';
+    const loadData = () => {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) return JSON.parse(raw);
+      } catch (e) {}
+      const fresh = seedData();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(fresh));
+      return fresh;
+    };
+    const saveData = (data) => localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+
+    // ============== ICONS (inline SVG) ==============
+    const Ic = ({ name, className = 'w-6 h-6' }) => {
+      const paths = {
+        home: <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l9-9 9 9M5 10v10h14V10" />,
+        dumbbell: <path strokeLinecap="round" strokeLinejoin="round" d="M6 6v12M10 4v16M14 4v16M18 6v12M3 10v4M21 10v4" />,
+        money: <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 1.343-3 3s1.343 3 3 3 3 1.343 3 3-1.343 3-3 3m0-12v12m0-12c1.5 0 2.5.5 3 1.5M12 8c-1.5 0-2.5.5-3 1.5m3 10.5v1m0-13V6" />,
+        user: <path strokeLinecap="round" strokeLinejoin="round" d="M16 14a4 4 0 10-8 0M20 21v-1a6 6 0 00-6-6h-4a6 6 0 00-6 6v1M16 10a4 4 0 11-8 0 4 4 0 018 0z" />,
+        users: <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H2v-2a4 4 0 014-4h4a4 4 0 014 4v2zm0-12a4 4 0 11-8 0 4 4 0 018 0zm8 4a4 4 0 100-8 4 4 0 000 8z" />,
+        chart: <path strokeLinecap="round" strokeLinejoin="round" d="M3 3v18h18M7 14l4-4 4 4 5-5" />,
+        plus: <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />,
+        check: <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />,
+        x: <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />,
+        chevronRight: <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />,
+        chevronLeft: <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />,
+        edit: <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.5-9.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z" />,
+        trash: <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-1 12a2 2 0 01-2 2H8a2 2 0 01-2-2L5 7m5 0V4a1 1 0 011-1h2a1 1 0 011 1v3M4 7h16" />,
+        logout: <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />,
+        calendar: <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3M16 7V3M4 11h16M5 6h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2z" />,
+        clock: <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 2m6-2a9 9 0 11-18 0 9 9 0 0118 0z" />,
+        search: <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />,
+        bolt: <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />,
+        warning: <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01M5 19h14a2 2 0 001.74-2.99l-7-12a2 2 0 00-3.48 0l-7 12A2 2 0 005 19z" />,
+        phone: <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h2.28a2 2 0 011.9 1.37l1 3.06a2 2 0 01-.45 2L8 11a11 11 0 005 5l1.57-1.73a2 2 0 012-.45l3.06 1a2 2 0 011.37 1.9V19a2 2 0 01-2 2A16 16 0 013 5z" />,
+      };
+      return (
+        <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          {paths[name]}
+        </svg>
+      );
+    };
+
+    // ============== PAYMENT LOGIC ==============
+    const getClientStatus = (client, payments) => {
+      const clientPayments = payments.filter(p => p.clientId === client.id);
+      const monthsPaid = new Set(clientPayments.map(p => monthKey(p.date)));
+      const currentMonth = currentMonthKey();
+      const hasPaidThisMonth = monthsPaid.has(currentMonth);
+      const lastPayment = clientPayments.sort((a,b) => b.date.localeCompare(a.date))[0];
+      return {
+        paidThisMonth: hasPaidThisMonth,
+        amountDue: hasPaidThisMonth ? 0 : client.monthlyFee,
+        lastPayment,
+      };
+    };
+
+    // ============== UI BLOCKS ==============
+    const Header = ({ title, subtitle, onBack, right }) => (
+      <header className="safe-top bg-neutral-950/80 backdrop-blur sticky top-0 z-20 border-b border-neutral-800">
+        <div className="flex items-center justify-between px-4 py-3">
+          <div className="flex items-center gap-3 min-w-0">
+            {onBack && (
+              <button onClick={onBack} className="-ml-2 p-2 rounded-full active:bg-neutral-800">
+                <Ic name="chevronLeft" className="w-6 h-6 text-white" />
+              </button>
+            )}
+            <div className="min-w-0">
+              <h1 className="text-white font-bold text-lg truncate">{title}</h1>
+              {subtitle && <p className="text-neutral-400 text-xs truncate">{subtitle}</p>}
+            </div>
+          </div>
+          {right}
+        </div>
+      </header>
+    );
+
+    const TabBar = ({ tabs, active, onChange }) => (
+      <nav className="fixed bottom-0 left-0 right-0 bg-neutral-950/95 backdrop-blur border-t border-neutral-800 safe-bottom z-30">
+        <div className="flex">
+          {tabs.map(t => (
+            <button key={t.id} onClick={() => onChange(t.id)}
+              className={`flex-1 flex flex-col items-center justify-center gap-1 pt-2 pb-1 ${active === t.id ? 'text-lime-400' : 'text-neutral-500'}`}>
+              <Ic name={t.icon} className="w-6 h-6" />
+              <span className="text-[10px] font-medium">{t.label}</span>
+            </button>
+          ))}
+        </div>
+      </nav>
+    );
+
+    const Card = ({ children, className = '' }) => (
+      <div className={`bg-neutral-900 border border-neutral-800 rounded-2xl p-4 ${className}`}>
+        {children}
+      </div>
+    );
+
+    const Button = ({ children, onClick, variant = 'primary', className = '', type = 'button' }) => {
+      const variants = {
+        primary: 'bg-lime-400 text-black hover:bg-lime-300 active:bg-lime-500',
+        secondary: 'bg-neutral-800 text-white hover:bg-neutral-700 active:bg-neutral-900',
+        danger: 'bg-red-500/20 text-red-400 hover:bg-red-500/30 active:bg-red-500/40',
+        ghost: 'bg-transparent text-neutral-300 hover:bg-neutral-800',
+      };
+      return (
+        <button type={type} onClick={onClick}
+          className={`px-4 py-3 rounded-xl font-semibold text-sm transition-colors ${variants[variant]} ${className}`}>
+          {children}
+        </button>
+      );
+    };
+
+    const Input = ({ label, ...props }) => (
+      <label className="block">
+        {label && <span className="text-xs text-neutral-400 mb-1 block font-medium">{label}</span>}
+        <input {...props}
+          className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-white placeholder-neutral-500 focus:border-lime-400 outline-none" />
+      </label>
+    );
+
+    const Select = ({ label, children, ...props }) => (
+      <label className="block">
+        {label && <span className="text-xs text-neutral-400 mb-1 block font-medium">{label}</span>}
+        <select {...props}
+          className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-white focus:border-lime-400 outline-none">
+          {children}
+        </select>
+      </label>
+    );
+
+    const Modal = ({ open, onClose, title, children }) => {
+      if (!open) return null;
+      return (
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4" onClick={onClose}>
+          <div className="bg-neutral-950 border border-neutral-800 rounded-t-3xl sm:rounded-2xl w-full sm:max-w-md max-h-[90vh] overflow-y-auto fade-in safe-bottom"
+               onClick={e => e.stopPropagation()}>
+            <div className="sticky top-0 bg-neutral-950 border-b border-neutral-800 px-5 py-4 flex items-center justify-between">
+              <h2 className="text-white font-bold text-lg">{title}</h2>
+              <button onClick={onClose} className="p-2 -mr-2 rounded-full hover:bg-neutral-800">
+                <Ic name="x" className="w-5 h-5 text-neutral-400" />
+              </button>
+            </div>
+            <div className="p-5">{children}</div>
+          </div>
+        </div>
+      );
+    };
+
+    const Badge = ({ children, color = 'neutral' }) => {
+      const colors = {
+        green: 'bg-lime-400/20 text-lime-400',
+        red: 'bg-red-500/20 text-red-400',
+        neutral: 'bg-neutral-800 text-neutral-300',
+        blue: 'bg-blue-500/20 text-blue-400',
+      };
+      return <span className={`px-2 py-1 rounded-md text-[11px] font-semibold ${colors[color]}`}>{children}</span>;
+    };
+
+    // ============== LOGIN ==============
+    function Login({ data, onLogin }) {
+      const [tab, setTab] = useState('client');
+      const [dni, setDni] = useState('');
+      const [password, setPassword] = useState('');
+      const [error, setError] = useState('');
+
+      const handleClientLogin = () => {
+        setError('');
+        const c = data.clients.find(c => c.dni === dni.trim());
+        if (!c) return setError('No encontramos un cliente con ese DNI.');
+        if (!c.active) return setError('Tu cuenta está inactiva. Hablá con el gimnasio.');
+        onLogin({ type: 'client', id: c.id });
+      };
+
+      const handleAdminLogin = () => {
+        setError('');
+        if (password !== data.gym.adminPassword) return setError('Contraseña incorrecta.');
+        onLogin({ type: 'admin' });
+      };
+
+      return (
+        <div className="min-h-screen flex flex-col safe-top safe-bottom px-6">
+          <div className="flex-1 flex flex-col justify-center max-w-md mx-auto w-full">
+            <div className="text-center mb-10 fade-in">
+              <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-lime-400 mb-5">
+                <Ic name="dumbbell" className="w-10 h-10 text-black" />
+              </div>
+              <h1 className="text-white text-3xl font-bold">{data.gym.name}</h1>
+              <p className="text-neutral-400 text-sm mt-1">Tu gimnasio en tu bolsillo</p>
+            </div>
+
+            <div className="bg-neutral-900 rounded-2xl p-1 flex mb-6 border border-neutral-800">
+              <button onClick={() => { setTab('client'); setError(''); }}
+                className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition ${tab === 'client' ? 'bg-lime-400 text-black' : 'text-neutral-400'}`}>
+                Cliente
+              </button>
+              <button onClick={() => { setTab('admin'); setError(''); }}
+                className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition ${tab === 'admin' ? 'bg-lime-400 text-black' : 'text-neutral-400'}`}>
+                Administrador
+              </button>
+            </div>
+
+            {tab === 'client' ? (
+              <div className="space-y-4 fade-in">
+                <Input label="DNI" placeholder="Ej: 30111222" value={dni} onChange={e => setDni(e.target.value)}
+                  inputMode="numeric" onKeyDown={e => e.key === 'Enter' && handleClientLogin()} />
+                <Button onClick={handleClientLogin} className="w-full">Entrar</Button>
+                <div className="text-xs text-neutral-500 text-center mt-4 bg-neutral-900/50 border border-neutral-800 rounded-xl p-3">
+                  <p className="font-semibold text-neutral-400 mb-1">DNIs de prueba:</p>
+                  {data.clients.slice(0,3).map(c => (
+                    <p key={c.id}>{c.name} → <span className="text-lime-400">{c.dni}</span></p>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-4 fade-in">
+                <Input label="Contraseña de administrador" type="password" placeholder="••••••••" value={password}
+                  onChange={e => setPassword(e.target.value)} onKeyDown={e => e.key === 'Enter' && handleAdminLogin()} />
+                <Button onClick={handleAdminLogin} className="w-full">Entrar al panel</Button>
+                <div className="text-xs text-neutral-500 text-center mt-4 bg-neutral-900/50 border border-neutral-800 rounded-xl p-3">
+                  Contraseña de prueba: <span className="text-lime-400 font-mono">admin123</span>
+                </div>
+              </div>
+            )}
+
+            {error && <div className="mt-4 bg-red-500/10 border border-red-500/30 text-red-400 text-sm rounded-xl p-3 text-center">{error}</div>}
+          </div>
+        </div>
+      );
+    }
+
+    // ============== CLIENT APP ==============
+    function ClientHome({ client, data }) {
+      const status = getClientStatus(client, data.payments);
+      const routine = data.routines.find(r => r.id === client.routineId);
+      const todayName = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'][new Date().getDay()];
+      const todayWorkout = routine?.days.find(d => d.day === todayName);
+
+      return (
+        <div className="p-4 space-y-4 fade-in">
+          <div>
+            <p className="text-neutral-400 text-sm">Hola,</p>
+            <h2 className="text-white text-2xl font-bold">{client.name.split(' ')[0]} 👋</h2>
+          </div>
+
+          <Card className={status.paidThisMonth ? 'border-lime-400/30 bg-lime-400/5' : 'border-amber-500/30 bg-amber-500/5'}>
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <p className="text-xs text-neutral-400 font-medium">Estado del mes</p>
+                <p className="text-white font-bold text-lg mt-1">
+                  {status.paidThisMonth ? 'Al día ✓' : 'Pendiente de pago'}
+                </p>
+                {!status.paidThisMonth && (
+                  <p className="text-amber-400 text-sm mt-1">Debe abonar {fmtMoney(status.amountDue)}</p>
+                )}
+              </div>
+              <div className={`p-3 rounded-xl ${status.paidThisMonth ? 'bg-lime-400/20' : 'bg-amber-500/20'}`}>
+                <Ic name={status.paidThisMonth ? 'check' : 'warning'} className={`w-6 h-6 ${status.paidThisMonth ? 'text-lime-400' : 'text-amber-400'}`} />
+              </div>
+            </div>
+          </Card>
+
+          {todayWorkout ? (
+            <Card>
+              <p className="text-xs text-neutral-400 font-medium">Entrenamiento de hoy</p>
+              <p className="text-white font-bold text-lg mt-1">{todayWorkout.focus}</p>
+              <p className="text-neutral-400 text-sm">{todayWorkout.exercises.length} ejercicios</p>
+              <div className="mt-3 space-y-1.5">
+                {todayWorkout.exercises.slice(0,3).map((ex, i) => (
+                  <div key={i} className="flex items-center justify-between text-sm">
+                    <span className="text-neutral-200">{ex.name}</span>
+                    <span className="text-neutral-500">{ex.sets} x {ex.reps}</span>
+                  </div>
+                ))}
+                {todayWorkout.exercises.length > 3 && (
+                  <p className="text-xs text-neutral-500 pt-1">+{todayWorkout.exercises.length - 3} ejercicios más en la pestaña Rutina</p>
+                )}
+              </div>
+            </Card>
+          ) : (
+            <Card>
+              <p className="text-xs text-neutral-400 font-medium">Entrenamiento de hoy</p>
+              <p className="text-white font-bold text-lg mt-1">Día de descanso 💪</p>
+              <p className="text-neutral-400 text-sm">Aprovechá para recuperarte.</p>
+            </Card>
+          )}
+
+          <Card>
+            <p className="text-xs text-neutral-400 font-medium">Tu rutina actual</p>
+            <p className="text-white font-bold text-lg mt-1">{routine?.name || 'Sin rutina asignada'}</p>
+            {routine && (
+              <>
+                <p className="text-neutral-400 text-sm">{routine.days.length} días por semana</p>
+                <div className="flex gap-2 mt-3 flex-wrap">
+                  {routine.days.map((d, i) => (
+                    <span key={i} className="text-[11px] font-semibold bg-neutral-800 text-neutral-300 px-2 py-1 rounded-md">
+                      {d.day.slice(0,3)}
+                    </span>
+                  ))}
+                </div>
+              </>
+            )}
+          </Card>
+        </div>
+      );
+    }
+
+    function ClientRoutine({ client, data }) {
+      const routine = data.routines.find(r => r.id === client.routineId);
+      const [expanded, setExpanded] = useState(0);
+
+      if (!routine) return (
+        <div className="p-4 fade-in">
+          <Card>
+            <p className="text-neutral-400 text-center py-6">Aún no tenés una rutina asignada. Hablá con tu entrenador.</p>
+          </Card>
+        </div>
+      );
+
+      return (
+        <div className="p-4 space-y-3 fade-in">
+          <div>
+            <h2 className="text-white text-xl font-bold">{routine.name}</h2>
+            {routine.description && <p className="text-neutral-400 text-sm mt-1">{routine.description}</p>}
+          </div>
+
+          {routine.days.map((d, i) => (
+            <Card key={i} className="!p-0 overflow-hidden">
+              <button onClick={() => setExpanded(expanded === i ? -1 : i)}
+                className="w-full p-4 flex items-center justify-between text-left">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-lime-400 font-bold text-sm">{d.day}</span>
+                    <Badge color="neutral">{d.exercises.length} ejercicios</Badge>
+                  </div>
+                  <p className="text-white font-semibold mt-1">{d.focus}</p>
+                </div>
+                <Ic name="chevronRight" className={`w-5 h-5 text-neutral-500 transition-transform ${expanded === i ? 'rotate-90' : ''}`} />
+              </button>
+              {expanded === i && (
+                <div className="border-t border-neutral-800 divide-y divide-neutral-800">
+                  {d.exercises.map((ex, j) => (
+                    <div key={j} className="p-4 flex items-center justify-between">
+                      <div className="min-w-0">
+                        <p className="text-white font-medium">{ex.name}</p>
+                        <p className="text-neutral-500 text-xs mt-0.5">Descanso: {ex.rest}</p>
+                      </div>
+                      <div className="text-right shrink-0 ml-3">
+                        <p className="text-lime-400 font-bold">{ex.sets} x {ex.reps}</p>
+                        <p className="text-neutral-500 text-[10px]">series x reps</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </Card>
+          ))}
+        </div>
+      );
+    }
+
+    function ClientPayments({ client, data }) {
+      const myPayments = data.payments.filter(p => p.clientId === client.id).sort((a,b) => b.date.localeCompare(a.date));
+      const status = getClientStatus(client, data.payments);
+      const totalPaid = myPayments.reduce((s, p) => s + p.amount, 0);
+
+      return (
+        <div className="p-4 space-y-4 fade-in">
+          <Card className={status.paidThisMonth ? 'border-lime-400/30 bg-lime-400/5' : 'border-amber-500/30 bg-amber-500/5'}>
+            <p className="text-xs text-neutral-400 font-medium">Cuota de este mes</p>
+            <p className="text-white text-3xl font-bold mt-1">
+              {status.paidThisMonth ? fmtMoney(0) : fmtMoney(status.amountDue)}
+            </p>
+            <p className={`text-sm mt-1 ${status.paidThisMonth ? 'text-lime-400' : 'text-amber-400'}`}>
+              {status.paidThisMonth ? '✓ Pagado' : 'Pendiente de pago'}
+            </p>
+          </Card>
+
+          <div className="grid grid-cols-2 gap-3">
+            <Card>
+              <p className="text-xs text-neutral-400">Total pagado</p>
+              <p className="text-white text-xl font-bold mt-1">{fmtMoney(totalPaid)}</p>
+            </Card>
+            <Card>
+              <p className="text-xs text-neutral-400">Pagos realizados</p>
+              <p className="text-white text-xl font-bold mt-1">{myPayments.length}</p>
+            </Card>
+          </div>
+
+          <div>
+            <p className="text-neutral-400 text-xs font-semibold uppercase tracking-wide mb-2 px-1">Historial</p>
+            {myPayments.length === 0 ? (
+              <Card><p className="text-neutral-400 text-center py-4">Aún no hay pagos registrados.</p></Card>
+            ) : (
+              <div className="space-y-2">
+                {myPayments.map(p => (
+                  <Card key={p.id} className="flex items-center justify-between !py-3">
+                    <div>
+                      <p className="text-white font-medium">{p.concept}</p>
+                      <p className="text-neutral-500 text-xs">{fmtDate(p.date)} · {p.method}</p>
+                    </div>
+                    <p className="text-lime-400 font-bold">{fmtMoney(p.amount)}</p>
+                  </Card>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    function ClientProfile({ client, data, onLogout }) {
+      return (
+        <div className="p-4 space-y-4 fade-in">
+          <div className="flex items-center gap-4">
+            <div className="w-16 h-16 rounded-full bg-lime-400 flex items-center justify-center text-black text-2xl font-bold">
+              {client.name.charAt(0)}
+            </div>
+            <div>
+              <h2 className="text-white font-bold text-xl">{client.name}</h2>
+              <p className="text-neutral-400 text-sm">Cliente desde {fmtDate(client.joinDate)}</p>
+            </div>
+          </div>
+
+          <Card>
+            <p className="text-neutral-400 text-xs font-semibold uppercase tracking-wide mb-3">Datos personales</p>
+            <div className="space-y-3">
+              <div className="flex justify-between"><span className="text-neutral-500 text-sm">DNI</span><span className="text-white text-sm font-medium">{client.dni}</span></div>
+              <div className="flex justify-between"><span className="text-neutral-500 text-sm">Email</span><span className="text-white text-sm font-medium">{client.email}</span></div>
+              <div className="flex justify-between"><span className="text-neutral-500 text-sm">Teléfono</span><span className="text-white text-sm font-medium">{client.phone}</span></div>
+              <div className="flex justify-between"><span className="text-neutral-500 text-sm">Plan</span><span className="text-white text-sm font-medium">{client.plan}</span></div>
+              <div className="flex justify-between"><span className="text-neutral-500 text-sm">Cuota mensual</span><span className="text-white text-sm font-medium">{fmtMoney(client.monthlyFee)}</span></div>
+            </div>
+          </Card>
+
+          <Card>
+            <p className="text-neutral-400 text-xs font-semibold uppercase tracking-wide mb-2">{data.gym.name}</p>
+            <div className="flex items-center gap-2 text-sm text-neutral-300"><Ic name="phone" className="w-4 h-4 text-neutral-500" />{data.gym.phone}</div>
+            <div className="flex items-center gap-2 text-sm text-neutral-300 mt-2"><Ic name="home" className="w-4 h-4 text-neutral-500" />{data.gym.address}</div>
+          </Card>
+
+          <Button onClick={onLogout} variant="danger" className="w-full flex items-center justify-center gap-2">
+            <Ic name="logout" className="w-4 h-4" /> Cerrar sesión
+          </Button>
+        </div>
+      );
+    }
+
+    function ClientApp({ client, data, onLogout }) {
+      const [tab, setTab] = useState('home');
+      const tabs = [
+        { id: 'home', label: 'Inicio', icon: 'home' },
+        { id: 'routine', label: 'Rutina', icon: 'dumbbell' },
+        { id: 'payments', label: 'Pagos', icon: 'money' },
+        { id: 'profile', label: 'Perfil', icon: 'user' },
+      ];
+      const titles = { home: 'Inicio', routine: 'Mi rutina', payments: 'Mis pagos', profile: 'Mi perfil' };
+
+      return (
+        <div className="min-h-screen flex flex-col">
+          <Header title={titles[tab]} subtitle={data.gym.name} />
+          <main className="flex-1 pb-24">
+            {tab === 'home' && <ClientHome client={client} data={data} />}
+            {tab === 'routine' && <ClientRoutine client={client} data={data} />}
+            {tab === 'payments' && <ClientPayments client={client} data={data} />}
+            {tab === 'profile' && <ClientProfile client={client} data={data} onLogout={onLogout} />}
+          </main>
+          <TabBar tabs={tabs} active={tab} onChange={setTab} />
+        </div>
+      );
+    }
+
+    // ============== ADMIN APP ==============
+    function AdminHome({ data, setData, goTo }) {
+      const monthIncome = data.payments
+        .filter(p => monthKey(p.date) === currentMonthKey())
+        .reduce((s, p) => s + p.amount, 0);
+
+      const morosos = data.clients.filter(c => c.active && !getClientStatus(c, data.payments).paidThisMonth);
+      const activeClients = data.clients.filter(c => c.active);
+      const recentPayments = [...data.payments].sort((a,b) => b.date.localeCompare(a.date)).slice(0,5);
+
+      return (
+        <div className="p-4 space-y-4 fade-in">
+          <div>
+            <p className="text-neutral-400 text-sm">Resumen general</p>
+            <h2 className="text-white text-2xl font-bold">{data.gym.name}</h2>
+          </div>
+
+          <div className="grid grid-cols-3 gap-3">
+            <Card className="!p-3">
+              <p className="text-[10px] text-neutral-400 font-semibold uppercase">Clientes</p>
+              <p className="text-white text-2xl font-bold mt-1">{activeClients.length}</p>
+            </Card>
+            <Card className="!p-3">
+              <p className="text-[10px] text-neutral-400 font-semibold uppercase">Ingresos mes</p>
+              <p className="text-lime-400 text-2xl font-bold mt-1">{fmtMoney(monthIncome).replace('$','$ ')}</p>
+            </Card>
+            <Card className="!p-3 !border-amber-500/30 bg-amber-500/5">
+              <p className="text-[10px] text-amber-400 font-semibold uppercase">Morosos</p>
+              <p className="text-amber-400 text-2xl font-bold mt-1">{morosos.length}</p>
+            </Card>
+          </div>
+
+          {morosos.length > 0 && (
+            <Card>
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-neutral-400 text-xs font-semibold uppercase tracking-wide">No pagaron este mes</p>
+                <button onClick={() => goTo('clients')} className="text-lime-400 text-xs font-semibold">Ver todos</button>
+              </div>
+              <div className="space-y-2">
+                {morosos.slice(0,4).map(c => (
+                  <div key={c.id} className="flex items-center justify-between">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-9 h-9 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-400 font-bold text-sm">
+                        {c.name.charAt(0)}
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-white font-medium text-sm truncate">{c.name}</p>
+                        <p className="text-neutral-500 text-xs">{c.plan}</p>
+                      </div>
+                    </div>
+                    <Badge color="red">{fmtMoney(c.monthlyFee)}</Badge>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          )}
+
+          <Card>
+            <div className="flex items-center justify-between mb-3">
+              <p className="text-neutral-400 text-xs font-semibold uppercase tracking-wide">Últimos pagos</p>
+              <button onClick={() => goTo('payments')} className="text-lime-400 text-xs font-semibold">Ver todos</button>
+            </div>
+            {recentPayments.length === 0 ? (
+              <p className="text-neutral-500 text-center py-3 text-sm">Sin pagos aún</p>
+            ) : (
+              <div className="space-y-2.5">
+                {recentPayments.map(p => {
+                  const c = data.clients.find(c => c.id === p.clientId);
+                  return (
+                    <div key={p.id} className="flex items-center justify-between">
+                      <div>
+                        <p className="text-white text-sm font-medium">{c?.name}</p>
+                        <p className="text-neutral-500 text-xs">{p.concept} · {fmtDate(p.date)}</p>
+                      </div>
+                      <p className="text-lime-400 font-bold text-sm">{fmtMoney(p.amount)}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </Card>
+        </div>
+      );
+    }
+
+    function ClientFormModal({ open, onClose, onSave, client, routines }) {
+      const empty = { name: '', dni: '', email: '', phone: '', plan: 'Mensual', monthlyFee: 15000, routineId: '', joinDate: todayISO(), notes: '', active: true };
+      const [form, setForm] = useState(empty);
+      useEffect(() => { setForm(client || empty); }, [client, open]);
+
+      const upd = (k, v) => setForm(f => ({ ...f, [k]: v }));
+      const handleSubmit = () => {
+        if (!form.name.trim() || !form.dni.trim()) return alert('Nombre y DNI son obligatorios');
+        onSave(form);
+        onClose();
+      };
+
+      return (
+        <Modal open={open} onClose={onClose} title={client ? 'Editar cliente' : 'Nuevo cliente'}>
+          <div className="space-y-3">
+            <Input label="Nombre completo" value={form.name} onChange={e => upd('name', e.target.value)} />
+            <Input label="DNI" value={form.dni} onChange={e => upd('dni', e.target.value)} inputMode="numeric" />
+            <div className="grid grid-cols-2 gap-3">
+              <Input label="Email" value={form.email} onChange={e => upd('email', e.target.value)} type="email" />
+              <Input label="Teléfono" value={form.phone} onChange={e => upd('phone', e.target.value)} inputMode="tel" />
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <Select label="Plan" value={form.plan} onChange={e => upd('plan', e.target.value)}>
+                <option>Mensual</option>
+                <option>Trimestral</option>
+                <option>Semestral</option>
+                <option>Anual</option>
+              </Select>
+              <Input label="Cuota mensual ($)" type="number" value={form.monthlyFee} onChange={e => upd('monthlyFee', Number(e.target.value))} />
+            </div>
+            <Select label="Rutina asignada" value={form.routineId} onChange={e => upd('routineId', e.target.value)}>
+              <option value="">— Sin rutina —</option>
+              {routines.map(r => <option key={r.id} value={r.id}>{r.name}</option>)}
+            </Select>
+            <Input label="Fecha de ingreso" type="date" value={form.joinDate} onChange={e => upd('joinDate', e.target.value)} />
+            <label className="block">
+              <span className="text-xs text-neutral-400 mb-1 block font-medium">Notas</span>
+              <textarea value={form.notes} onChange={e => upd('notes', e.target.value)} rows="2"
+                className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-white placeholder-neutral-500 focus:border-lime-400 outline-none" />
+            </label>
+            <label className="flex items-center gap-3 p-3 bg-neutral-900 rounded-xl border border-neutral-800">
+              <input type="checkbox" checked={form.active} onChange={e => upd('active', e.target.checked)}
+                className="w-5 h-5 accent-lime-400" />
+              <span className="text-white text-sm">Cliente activo</span>
+            </label>
+            <div className="grid grid-cols-2 gap-3 pt-2">
+              <Button onClick={onClose} variant="secondary">Cancelar</Button>
+              <Button onClick={handleSubmit}>Guardar</Button>
+            </div>
+          </div>
+        </Modal>
+      );
+    }
+
+    function PaymentFormModal({ open, onClose, onSave, clients, preselectedClientId }) {
+      const empty = { clientId: '', amount: 15000, date: todayISO(), concept: '', method: 'Efectivo' };
+      const [form, setForm] = useState(empty);
+      useEffect(() => {
+        if (open) {
+          const cid = preselectedClientId || '';
+          const c = clients.find(c => c.id === cid);
+          setForm({ ...empty, clientId: cid, amount: c?.monthlyFee || 15000, concept: `Cuota ${monthName(new Date().getMonth())}` });
+        }
+      }, [open, preselectedClientId]);
+
+      const upd = (k, v) => setForm(f => ({ ...f, [k]: v }));
+      const handleSubmit = () => {
+        if (!form.clientId) return alert('Seleccioná un cliente');
+        if (!form.amount) return alert('Ingresá el monto');
+        onSave({ ...form, id: uid() });
+        onClose();
+      };
+
+      return (
+        <Modal open={open} onClose={onClose} title="Registrar pago">
+          <div className="space-y-3">
+            <Select label="Cliente" value={form.clientId} onChange={e => {
+              const c = clients.find(x => x.id === e.target.value);
+              setForm(f => ({ ...f, clientId: e.target.value, amount: c?.monthlyFee || f.amount }));
+            }}>
+              <option value="">— Seleccionar cliente —</option>
+              {clients.filter(c => c.active).map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+            </Select>
+            <Input label="Monto ($)" type="number" value={form.amount} onChange={e => upd('amount', Number(e.target.value))} />
+            <Input label="Concepto" value={form.concept} onChange={e => upd('concept', e.target.value)} placeholder="Ej: Cuota Mayo" />
+            <Input label="Fecha" type="date" value={form.date} onChange={e => upd('date', e.target.value)} />
+            <Select label="Método de pago" value={form.method} onChange={e => upd('method', e.target.value)}>
+              <option>Efectivo</option>
+              <option>Transferencia</option>
+              <option>Débito</option>
+              <option>Crédito</option>
+              <option>MercadoPago</option>
+            </Select>
+            <div className="grid grid-cols-2 gap-3 pt-2">
+              <Button onClick={onClose} variant="secondary">Cancelar</Button>
+              <Button onClick={handleSubmit}>Registrar</Button>
+            </div>
+          </div>
+        </Modal>
+      );
+    }
+
+    function AdminClients({ data, setData, openClient }) {
+      const [search, setSearch] = useState('');
+      const [showForm, setShowForm] = useState(false);
+      const [editing, setEditing] = useState(null);
+
+      const filtered = data.clients.filter(c =>
+        c.name.toLowerCase().includes(search.toLowerCase()) ||
+        c.dni.includes(search)
+      );
+
+      const handleSave = (form) => {
+        if (editing) {
+          setData({ ...data, clients: data.clients.map(c => c.id === editing.id ? { ...c, ...form } : c) });
+        } else {
+          setData({ ...data, clients: [...data.clients, { ...form, id: uid() }] });
+        }
+        setEditing(null);
+      };
+
+      return (
+        <div className="p-4 space-y-3 fade-in">
+          <div className="flex gap-2">
+            <div className="flex-1 relative">
+              <Ic name="search" className="w-4 h-4 text-neutral-500 absolute left-3 top-1/2 -translate-y-1/2" />
+              <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Buscar por nombre o DNI"
+                className="w-full bg-neutral-900 border border-neutral-800 rounded-xl pl-10 pr-4 py-3 text-white placeholder-neutral-500 focus:border-lime-400 outline-none" />
+            </div>
+            <Button onClick={() => { setEditing(null); setShowForm(true); }} className="!px-4 flex items-center justify-center">
+              <Ic name="plus" className="w-5 h-5" />
+            </Button>
+          </div>
+
+          <div className="space-y-2">
+            {filtered.length === 0 ? (
+              <Card><p className="text-neutral-400 text-center py-4">Sin resultados</p></Card>
+            ) : filtered.map(c => {
+              const status = getClientStatus(c, data.payments);
+              return (
+                <button key={c.id} onClick={() => openClient(c.id)} className="block w-full text-left">
+                  <Card className="hover:border-neutral-700 transition-colors">
+                    <div className="flex items-center gap-3">
+                      <div className="w-11 h-11 rounded-full bg-neutral-800 flex items-center justify-center text-white font-bold shrink-0">
+                        {c.name.charAt(0)}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2">
+                          <p className="text-white font-semibold truncate">{c.name}</p>
+                          {!c.active && <Badge color="neutral">Inactivo</Badge>}
+                        </div>
+                        <p className="text-neutral-500 text-xs">DNI {c.dni} · {c.plan}</p>
+                      </div>
+                      <div className="text-right shrink-0">
+                        <Badge color={status.paidThisMonth ? 'green' : 'red'}>
+                          {status.paidThisMonth ? 'Al día' : 'Debe'}
+                        </Badge>
+                      </div>
+                    </div>
+                  </Card>
+                </button>
+              );
+            })}
+          </div>
+
+          <ClientFormModal open={showForm} onClose={() => setShowForm(false)} onSave={handleSave} client={editing} routines={data.routines} />
+        </div>
+      );
+    }
+
+    function ClientDetail({ clientId, data, setData, onBack }) {
+      const [showEdit, setShowEdit] = useState(false);
+      const [showPayment, setShowPayment] = useState(false);
+      const client = data.clients.find(c => c.id === clientId);
+      if (!client) return null;
+
+      const myPayments = data.payments.filter(p => p.clientId === client.id).sort((a,b) => b.date.localeCompare(a.date));
+      const status = getClientStatus(client, data.payments);
+      const routine = data.routines.find(r => r.id === client.routineId);
+
+      const handleEdit = (form) => {
+        setData({ ...data, clients: data.clients.map(c => c.id === client.id ? { ...c, ...form } : c) });
+      };
+
+      const handleAddPayment = (payment) => {
+        setData({ ...data, payments: [...data.payments, payment] });
+      };
+
+      const handleDelete = () => {
+        if (!confirm(`¿Eliminar a ${client.name}? Esta acción no se puede deshacer.`)) return;
+        setData({
+          ...data,
+          clients: data.clients.filter(c => c.id !== client.id),
+          payments: data.payments.filter(p => p.clientId !== client.id),
+        });
+        onBack();
+      };
+
+      return (
+        <div className="min-h-screen flex flex-col">
+          <Header title={client.name} onBack={onBack}
+            right={<button onClick={() => setShowEdit(true)} className="p-2 -mr-2 rounded-full active:bg-neutral-800"><Ic name="edit" className="w-5 h-5 text-lime-400" /></button>} />
+
+          <main className="flex-1 p-4 space-y-4 fade-in pb-8">
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 rounded-full bg-lime-400 flex items-center justify-center text-black text-2xl font-bold">
+                {client.name.charAt(0)}
+              </div>
+              <div>
+                <h2 className="text-white font-bold text-xl">{client.name}</h2>
+                <p className="text-neutral-400 text-sm">{client.plan} · {fmtMoney(client.monthlyFee)}/mes</p>
+                <Badge color={status.paidThisMonth ? 'green' : 'red'}>
+                  {status.paidThisMonth ? 'Al día este mes' : `Debe ${fmtMoney(status.amountDue)}`}
+                </Badge>
+              </div>
+            </div>
+
+            <Card>
+              <p className="text-neutral-400 text-xs font-semibold uppercase tracking-wide mb-3">Datos</p>
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between"><span className="text-neutral-500">DNI</span><span className="text-white">{client.dni}</span></div>
+                <div className="flex justify-between"><span className="text-neutral-500">Email</span><span className="text-white">{client.email}</span></div>
+                <div className="flex justify-between"><span className="text-neutral-500">Teléfono</span><span className="text-white">{client.phone}</span></div>
+                <div className="flex justify-between"><span className="text-neutral-500">Ingresó</span><span className="text-white">{fmtDate(client.joinDate)}</span></div>
+                <div className="flex justify-between"><span className="text-neutral-500">Rutina</span><span className="text-white">{routine?.name || '—'}</span></div>
+              </div>
+              {client.notes && (
+                <div className="mt-3 pt-3 border-t border-neutral-800">
+                  <p className="text-neutral-500 text-xs mb-1">Notas</p>
+                  <p className="text-neutral-300 text-sm">{client.notes}</p>
+                </div>
+              )}
+            </Card>
+
+            <div>
+              <div className="flex items-center justify-between mb-2 px-1">
+                <p className="text-neutral-400 text-xs font-semibold uppercase tracking-wide">Pagos ({myPayments.length})</p>
+                <button onClick={() => setShowPayment(true)} className="text-lime-400 text-xs font-semibold flex items-center gap-1">
+                  <Ic name="plus" className="w-3.5 h-3.5" /> Registrar pago
+                </button>
+              </div>
+              {myPayments.length === 0 ? (
+                <Card><p className="text-neutral-500 text-sm text-center py-3">Sin pagos registrados</p></Card>
+              ) : (
+                <div className="space-y-2">
+                  {myPayments.map(p => (
+                    <Card key={p.id} className="!py-3 flex items-center justify-between">
+                      <div>
+                        <p className="text-white text-sm font-medium">{p.concept}</p>
+                        <p className="text-neutral-500 text-xs">{fmtDate(p.date)} · {p.method}</p>
+                      </div>
+                      <p className="text-lime-400 font-bold text-sm">{fmtMoney(p.amount)}</p>
+                    </Card>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <Button onClick={handleDelete} variant="danger" className="w-full flex items-center justify-center gap-2">
+              <Ic name="trash" className="w-4 h-4" /> Eliminar cliente
+            </Button>
+          </main>
+
+          <ClientFormModal open={showEdit} onClose={() => setShowEdit(false)} onSave={handleEdit} client={client} routines={data.routines} />
+          <PaymentFormModal open={showPayment} onClose={() => setShowPayment(false)} onSave={handleAddPayment} clients={data.clients} preselectedClientId={client.id} />
+        </div>
+      );
+    }
+
+    function AdminRoutines({ data, setData }) {
+      const [editing, setEditing] = useState(null);
+      const [showForm, setShowForm] = useState(false);
+
+      const handleSave = (routine) => {
+        if (editing) {
+          setData({ ...data, routines: data.routines.map(r => r.id === editing.id ? routine : r) });
+        } else {
+          setData({ ...data, routines: [...data.routines, { ...routine, id: uid() }] });
+        }
+      };
+
+      const handleDelete = (id) => {
+        if (!confirm('¿Eliminar esta rutina?')) return;
+        setData({
+          ...data,
+          routines: data.routines.filter(r => r.id !== id),
+          clients: data.clients.map(c => c.routineId === id ? { ...c, routineId: '' } : c),
+        });
+      };
+
+      return (
+        <div className="p-4 space-y-3 fade-in">
+          <Button onClick={() => { setEditing(null); setShowForm(true); }} className="w-full flex items-center justify-center gap-2">
+            <Ic name="plus" className="w-5 h-5" /> Nueva rutina
+          </Button>
+
+          <div className="space-y-2">
+            {data.routines.map(r => {
+              const assignedCount = data.clients.filter(c => c.routineId === r.id).length;
+              return (
+                <Card key={r.id}>
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex-1 min-w-0">
+                      <p className="text-white font-bold">{r.name}</p>
+                      <p className="text-neutral-400 text-xs mt-0.5">{r.days.length} días · {assignedCount} alumno{assignedCount !== 1 ? 's' : ''} asignado{assignedCount !== 1 ? 's' : ''}</p>
+                      {r.description && <p className="text-neutral-500 text-xs mt-1.5">{r.description}</p>}
+                      <div className="flex gap-1.5 mt-2 flex-wrap">
+                        {r.days.map((d, i) => (
+                          <span key={i} className="text-[10px] font-semibold bg-neutral-800 text-neutral-300 px-2 py-0.5 rounded">
+                            {d.day.slice(0,3)} · {d.focus}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-1 shrink-0">
+                      <button onClick={() => { setEditing(r); setShowForm(true); }} className="p-2 rounded-lg hover:bg-neutral-800">
+                        <Ic name="edit" className="w-4 h-4 text-lime-400" />
+                      </button>
+                      <button onClick={() => handleDelete(r.id)} className="p-2 rounded-lg hover:bg-neutral-800">
+                        <Ic name="trash" className="w-4 h-4 text-red-400" />
+                      </button>
+                    </div>
+                  </div>
+                </Card>
+              );
+            })}
+          </div>
+
+          <RoutineFormModal open={showForm} onClose={() => setShowForm(false)} onSave={handleSave} routine={editing} />
+        </div>
+      );
+    }
+
+    function RoutineFormModal({ open, onClose, onSave, routine }) {
+      const empty = { name: '', description: '', days: [] };
+      const [form, setForm] = useState(empty);
+
+      useEffect(() => { setForm(routine ? JSON.parse(JSON.stringify(routine)) : empty); }, [routine, open]);
+
+      const addDay = () => setForm(f => ({ ...f, days: [...f.days, { day: 'Lunes', focus: '', exercises: [] }] }));
+      const removeDay = (i) => setForm(f => ({ ...f, days: f.days.filter((_, j) => j !== i) }));
+      const updateDay = (i, k, v) => setForm(f => ({ ...f, days: f.days.map((d, j) => j === i ? { ...d, [k]: v } : d) }));
+      const addExercise = (i) => updateDay(i, 'exercises', [...form.days[i].exercises, { name: '', sets: 3, reps: '10-12', rest: '60s' }]);
+      const removeExercise = (di, ei) => updateDay(di, 'exercises', form.days[di].exercises.filter((_, j) => j !== ei));
+      const updateExercise = (di, ei, k, v) => updateDay(di, 'exercises', form.days[di].exercises.map((ex, j) => j === ei ? { ...ex, [k]: v } : ex));
+
+      const handleSubmit = () => {
+        if (!form.name.trim()) return alert('Ingresá un nombre');
+        onSave(form);
+        onClose();
+      };
+
+      return (
+        <Modal open={open} onClose={onClose} title={routine ? 'Editar rutina' : 'Nueva rutina'}>
+          <div className="space-y-3">
+            <Input label="Nombre" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} placeholder="Ej: Fuerza intermedia" />
+            <Input label="Descripción" value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} />
+
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <p className="text-neutral-400 text-xs font-semibold uppercase">Días</p>
+                <button onClick={addDay} className="text-lime-400 text-xs font-semibold flex items-center gap-1">
+                  <Ic name="plus" className="w-3.5 h-3.5" /> Agregar día
+                </button>
+              </div>
+
+              {form.days.map((d, di) => (
+                <div key={di} className="bg-neutral-900 rounded-xl p-3 border border-neutral-800 space-y-2">
+                  <div className="flex gap-2 items-end">
+                    <Select label="Día" value={d.day} onChange={e => updateDay(di, 'day', e.target.value)}>
+                      {['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'].map(x => <option key={x}>{x}</option>)}
+                    </Select>
+                    <Input label="Enfoque" value={d.focus} onChange={e => updateDay(di, 'focus', e.target.value)} placeholder="Ej: Pecho" />
+                    <button onClick={() => removeDay(di)} className="p-3 bg-red-500/20 text-red-400 rounded-xl">
+                      <Ic name="trash" className="w-4 h-4" />
+                    </button>
+                  </div>
+
+                  {d.exercises.map((ex, ei) => (
+                    <div key={ei} className="bg-neutral-950 rounded-lg p-2 grid grid-cols-12 gap-2 items-center">
+                      <input className="col-span-5 bg-neutral-900 rounded px-2 py-1.5 text-white text-sm border border-neutral-800 outline-none focus:border-lime-400"
+                        placeholder="Ejercicio" value={ex.name} onChange={e => updateExercise(di, ei, 'name', e.target.value)} />
+                      <input className="col-span-2 bg-neutral-900 rounded px-2 py-1.5 text-white text-sm border border-neutral-800 outline-none focus:border-lime-400"
+                        type="number" placeholder="Series" value={ex.sets} onChange={e => updateExercise(di, ei, 'sets', Number(e.target.value))} />
+                      <input className="col-span-3 bg-neutral-900 rounded px-2 py-1.5 text-white text-sm border border-neutral-800 outline-none focus:border-lime-400"
+                        placeholder="Reps" value={ex.reps} onChange={e => updateExercise(di, ei, 'reps', e.target.value)} />
+                      <button onClick={() => removeExercise(di, ei)} className="col-span-2 p-1.5 bg-red-500/20 text-red-400 rounded text-xs">
+                        Quitar
+                      </button>
+                    </div>
+                  ))}
+
+                  <button onClick={() => addExercise(di)} className="w-full text-xs text-lime-400 py-1.5 border border-dashed border-neutral-700 rounded-lg hover:bg-neutral-800">
+                    + Agregar ejercicio
+                  </button>
+                </div>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-2 gap-3 pt-2">
+              <Button onClick={onClose} variant="secondary">Cancelar</Button>
+              <Button onClick={handleSubmit}>Guardar</Button>
+            </div>
+          </div>
+        </Modal>
+      );
+    }
+
+    function AdminPayments({ data, setData }) {
+      const [showForm, setShowForm] = useState(false);
+      const [filterClient, setFilterClient] = useState('');
+      const [search, setSearch] = useState('');
+
+      const handleAdd = (payment) => {
+        setData({ ...data, payments: [...data.payments, payment] });
+      };
+
+      const handleDelete = (id) => {
+        if (!confirm('¿Eliminar este pago?')) return;
+        setData({ ...data, payments: data.payments.filter(p => p.id !== id) });
+      };
+
+      const filtered = data.payments
+        .filter(p => !filterClient || p.clientId === filterClient)
+        .filter(p => {
+          if (!search) return true;
+          const c = data.clients.find(c => c.id === p.clientId);
+          return c?.name.toLowerCase().includes(search.toLowerCase()) || p.concept.toLowerCase().includes(search.toLowerCase());
+        })
+        .sort((a, b) => b.date.localeCompare(a.date));
+
+      const total = filtered.reduce((s, p) => s + p.amount, 0);
+
+      return (
+        <div className="p-4 space-y-3 fade-in">
+          <Button onClick={() => setShowForm(true)} className="w-full flex items-center justify-center gap-2">
+            <Ic name="plus" className="w-5 h-5" /> Registrar pago
+          </Button>
+
+          <div className="flex gap-2">
+            <div className="flex-1 relative">
+              <Ic name="search" className="w-4 h-4 text-neutral-500 absolute left-3 top-1/2 -translate-y-1/2" />
+              <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Buscar"
+                className="w-full bg-neutral-900 border border-neutral-800 rounded-xl pl-10 pr-4 py-3 text-white placeholder-neutral-500 focus:border-lime-400 outline-none" />
+            </div>
+            <select value={filterClient} onChange={e => setFilterClient(e.target.value)}
+              className="bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-3 text-white text-sm outline-none focus:border-lime-400 max-w-[140px]">
+              <option value="">Todos</option>
+              {data.clients.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+            </select>
+          </div>
+
+          <Card>
+            <div className="flex justify-between items-center">
+              <p className="text-neutral-400 text-xs font-semibold uppercase">Total filtrado</p>
+              <p className="text-lime-400 font-bold text-xl">{fmtMoney(total)}</p>
+            </div>
+          </Card>
+
+          <div className="space-y-2">
+            {filtered.length === 0 ? (
+              <Card><p className="text-neutral-400 text-center py-4">Sin pagos</p></Card>
+            ) : filtered.map(p => {
+              const c = data.clients.find(c => c.id === p.clientId);
+              return (
+                <Card key={p.id} className="flex items-center justify-between">
+                  <div className="min-w-0 flex-1">
+                    <p className="text-white font-medium text-sm">{c?.name || 'Cliente eliminado'}</p>
+                    <p className="text-neutral-500 text-xs">{p.concept} · {fmtDate(p.date)} · {p.method}</p>
+                  </div>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <p className="text-lime-400 font-bold text-sm">{fmtMoney(p.amount)}</p>
+                    <button onClick={() => handleDelete(p.id)} className="p-1.5 rounded-lg hover:bg-neutral-800">
+                      <Ic name="trash" className="w-4 h-4 text-red-400" />
+                    </button>
+                  </div>
+                </Card>
+              );
+            })}
+          </div>
+
+          <PaymentFormModal open={showForm} onClose={() => setShowForm(false)} onSave={handleAdd} clients={data.clients} />
+        </div>
+      );
+    }
+
+    function AdminSettings({ data, setData, onLogout, onReset }) {
+      const [form, setForm] = useState(data.gym);
+      const upd = (k, v) => setForm(f => ({ ...f, [k]: v }));
+      const save = () => {
+        setData({ ...data, gym: form });
+        alert('Datos guardados');
+      };
+      return (
+        <div className="p-4 space-y-4 fade-in">
+          <Card>
+            <p className="text-neutral-400 text-xs font-semibold uppercase tracking-wide mb-3">Datos del gimnasio</p>
+            <div className="space-y-3">
+              <Input label="Nombre" value={form.name} onChange={e => upd('name', e.target.value)} />
+              <Input label="Dirección" value={form.address} onChange={e => upd('address', e.target.value)} />
+              <Input label="Teléfono" value={form.phone} onChange={e => upd('phone', e.target.value)} />
+              <Input label="Cuota mensual por defecto ($)" type="number" value={form.monthlyFee} onChange={e => upd('monthlyFee', Number(e.target.value))} />
+              <Input label="Contraseña de administrador" type="password" value={form.adminPassword} onChange={e => upd('adminPassword', e.target.value)} />
+              <Button onClick={save} className="w-full">Guardar cambios</Button>
+            </div>
+          </Card>
+
+          <Card>
+            <p className="text-neutral-400 text-xs font-semibold uppercase tracking-wide mb-3">Demo</p>
+            <p className="text-neutral-300 text-sm mb-3">Restaurá los datos de ejemplo para volver a empezar.</p>
+            <Button onClick={onReset} variant="secondary" className="w-full">Restablecer datos de demo</Button>
+          </Card>
+
+          <Button onClick={onLogout} variant="danger" className="w-full flex items-center justify-center gap-2">
+            <Ic name="logout" className="w-4 h-4" /> Cerrar sesión
+          </Button>
+        </div>
+      );
+    }
+
+    function AdminApp({ data, setData, onLogout }) {
+      const [tab, setTab] = useState('home');
+      const [openClientId, setOpenClientId] = useState(null);
+
+      const tabs = [
+        { id: 'home', label: 'Inicio', icon: 'chart' },
+        { id: 'clients', label: 'Clientes', icon: 'users' },
+        { id: 'routines', label: 'Rutinas', icon: 'dumbbell' },
+        { id: 'payments', label: 'Pagos', icon: 'money' },
+        { id: 'settings', label: 'Ajustes', icon: 'user' },
+      ];
+      const titles = { home: 'Panel admin', clients: 'Clientes', routines: 'Rutinas', payments: 'Pagos', settings: 'Ajustes' };
+
+      const handleReset = () => {
+        if (!confirm('¿Restablecer todos los datos a la versión demo? Se perderán los cambios.')) return;
+        localStorage.removeItem(STORAGE_KEY);
+        setData(seedData());
+      };
+
+      if (openClientId) {
+        return <ClientDetail clientId={openClientId} data={data} setData={setData} onBack={() => setOpenClientId(null)} />;
+      }
+
+      return (
+        <div className="min-h-screen flex flex-col">
+          <Header title={titles[tab]} subtitle={data.gym.name} />
+          <main className="flex-1 pb-24">
+            {tab === 'home' && <AdminHome data={data} setData={setData} goTo={setTab} />}
+            {tab === 'clients' && <AdminClients data={data} setData={setData} openClient={setOpenClientId} />}
+            {tab === 'routines' && <AdminRoutines data={data} setData={setData} />}
+            {tab === 'payments' && <AdminPayments data={data} setData={setData} />}
+            {tab === 'settings' && <AdminSettings data={data} setData={setData} onLogout={onLogout} onReset={handleReset} />}
+          </main>
+          <TabBar tabs={tabs} active={tab} onChange={setTab} />
+        </div>
+      );
+    }
+
+    // ============== ROOT ==============
+    function App() {
+      const [data, setDataState] = useState(loadData);
+      const [user, setUser] = useState(() => {
+        try { return JSON.parse(sessionStorage.getItem('gymapp_user')); } catch { return null; }
+      });
+
+      const setData = (newData) => {
+        setDataState(newData);
+        saveData(newData);
+      };
+
+      const login = (u) => {
+        setUser(u);
+        sessionStorage.setItem('gymapp_user', JSON.stringify(u));
+      };
+      const logout = () => {
+        setUser(null);
+        sessionStorage.removeItem('gymapp_user');
+      };
+
+      if (!user) return <Login data={data} onLogin={login} />;
+      if (user.type === 'admin') return <AdminApp data={data} setData={setData} onLogout={logout} />;
+      const client = data.clients.find(c => c.id === user.id);
+      if (!client) { logout(); return null; }
+      return <ClientApp client={client} data={data} onLogout={logout} />;
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

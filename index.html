@@ -54,6 +54,14 @@
     const currentMonthKey = () => todayISO().slice(0,7);
     const uid = () => Math.random().toString(36).slice(2,10);
 
+    // ===================== EXERCISE VIDEOS =====================
+    const EXERCISE_VIDEOS = {
+      'Sentadilla con barra': './videos/sentadilla.mp4',
+      'Curl con barra': './videos/curl-biceps.mp4',
+      'Abducción de cadera': './videos/abductores.mp4',
+      'Prensa 90°': './videos/prensa-90.mp4',
+    };
+
     // ===================== SEED DATA =====================
     const IMG = {
       hipertrofia: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&q=80',
@@ -96,6 +104,7 @@
         sentadillaPL: { name: 'Sentadilla peso libre', type: 'series', sets: 4, reps: '15', rest: '45s' },
         hackSquat: { name: 'Hack Squat', type: 'series', sets: 4, reps: '8-10', rest: '90s' },
         prensa: { name: 'Prensa 45°', type: 'series', sets: 4, reps: '10-12', rest: '90s' },
+        prensa90: { name: 'Prensa 90°', type: 'series', sets: 4, reps: '10-12', rest: '90s' },
         curlFemoral: { name: 'Curl femoral', type: 'series', sets: 3, reps: '12', rest: '60s' },
         extQuad: { name: 'Extensión de cuádriceps', type: 'series', sets: 3, reps: '12', rest: '60s' },
         gemelos: { name: 'Gemelos de pie', type: 'series', sets: 4, reps: '15', rest: '45s' },
@@ -398,7 +407,7 @@
           id: 'r3', categoryId: 'cat1', name: 'FUERZA 4X SEMANA', level: 3, weeks: 6, daysPerWeek: 4, totalSessions: 24, image: IMG.aumentoMasa,
           description: 'Foco en levantamientos pesados y series cortas para máxima fuerza.',
           sessions: [
-            ses(1, 'Sentadilla pesada', 'sentadilla', 'prensa', 'curlFemoral', 'gemelos'),
+            ses(1, 'Sentadilla pesada', 'sentadilla', 'prensa', 'prensa90', 'curlFemoral', 'gemelos'),
             ses(2, 'Banca pesada', 'pressBanca', 'pressInclinadoMan', 'triPolea'),
             ses(3, 'Peso muerto', 'pesoMuerto', 'remoBarra', 'curlBarra'),
             ses(4, 'Press militar', 'pressMilitar', 'elevLaterales', 'pajaros'),
@@ -1955,14 +1964,27 @@
       const ex = sesion?.exercises[exIdx];
       if (!ex) return null;
       const isDuration = typeof ex.reps === 'string' && (ex.reps.includes('min') || ex.reps.includes(':') || ex.reps.includes('s'));
+      const videoSrc = EXERCISE_VIDEOS[ex.name];
 
       return (
         <div className="min-h-screen bg-white pb-28">
           <Header title={`Sesión ${sesionN}`} onBack={pop} />
-          <div className="bg-white py-8 px-6 flex items-center justify-center border-b border-neutral-100">
-            <div className="w-56 h-56 bg-neutral-50 rounded-2xl flex items-center justify-center">
-              <Ic name="dumbbell" className="w-28 h-28 text-neutral-300" />
-            </div>
+          <div className="bg-black flex items-center justify-center border-b border-neutral-100">
+            {videoSrc ? (
+              <video
+                src={videoSrc}
+                controls
+                playsInline
+                preload="metadata"
+                className="w-full max-h-80 object-contain bg-black"
+              />
+            ) : (
+              <div className="py-8 px-6 flex items-center justify-center bg-white w-full">
+                <div className="w-56 h-56 bg-neutral-50 rounded-2xl flex items-center justify-center">
+                  <Ic name="dumbbell" className="w-28 h-28 text-neutral-300" />
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="p-4 fade-in">

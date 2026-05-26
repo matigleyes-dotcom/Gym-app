@@ -1,13 +1,13 @@
 {
-  "name": "GymApp",
-  "short_name": "GymApp",
-  "description": "Aplicación de gestión para gimnasios y sus clientes",
+  "name": "Tiempo Vital",
+  "short_name": "Tiempo Vital",
+  "description": "Tu gimnasio en tu bolsillo. Consultá tu rutina, pagos, reservas y progreso.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#0a0a0a",
-  "theme_color": "#0a0a0a",
+  "background_color": "#ffffff",
+  "theme_color": "#16a34a",
   "lang": "es",
   "icons": [
     {

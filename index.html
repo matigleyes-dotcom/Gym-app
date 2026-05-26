@@ -70,7 +70,78 @@
       avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80',
     };
 
-    const seedData = () => ({
+    const seedData = () => {
+      const EX = {
+        pressBanca: { name: 'Press banca con barra', type: 'series', sets: 4, reps: '8-10', rest: '90s' },
+        pressInclinadoMan: { name: 'Press inclinado mancuernas', type: 'series', sets: 4, reps: '10', rest: '90s' },
+        aperturasPolea: { name: 'Aperturas en polea', type: 'series', sets: 3, reps: '12', rest: '60s' },
+        fondos: { name: 'Fondos en paralelas', type: 'series', sets: 3, reps: '12', rest: '60s' },
+        pressFrances: { name: 'Press francés', type: 'series', sets: 3, reps: '10-12', rest: '60s' },
+        triPolea: { name: 'Extensión tríceps polea', type: 'series', sets: 3, reps: '12-15', rest: '45s' },
+        crucesPolea: { name: 'Cruces en polea', type: 'series', sets: 3, reps: '12', rest: '60s' },
+        flexiones: { name: 'Flexiones', type: 'series', sets: 4, reps: '15', rest: '60s' },
+        dominadas: { name: 'Dominadas', type: 'series', sets: 4, reps: '8-10', rest: '90s' },
+        dominadasAsist: { name: 'Dominadas asistidas', type: 'series', sets: 4, reps: '10', rest: '60s' },
+        remoBarra: { name: 'Remo con barra', type: 'series', sets: 4, reps: '10', rest: '90s' },
+        remoT: { name: 'Remo en T', type: 'series', sets: 4, reps: '10', rest: '90s' },
+        remoMancuerna: { name: 'Remo con mancuerna', type: 'series', sets: 3, reps: '12 c/lado', rest: '60s' },
+        jalonPecho: { name: 'Jalón al pecho', type: 'series', sets: 3, reps: '12', rest: '60s' },
+        pesoMuerto: { name: 'Peso muerto', type: 'series', sets: 5, reps: '5', rest: '180s' },
+        pesoMuertoRumano: { name: 'Peso muerto rumano', type: 'series', sets: 4, reps: '10', rest: '90s' },
+        curlBarra: { name: 'Curl con barra', type: 'series', sets: 4, reps: '10-12', rest: '60s' },
+        curlMartillo: { name: 'Curl martillo', type: 'series', sets: 3, reps: '12 c/brazo', rest: '60s' },
+        curlPredicador: { name: 'Curl predicador', type: 'series', sets: 3, reps: '10-12', rest: '60s' },
+        pullover: { name: 'Pullover', type: 'series', sets: 3, reps: '12', rest: '60s' },
+        sentadilla: { name: 'Sentadilla con barra', type: 'series', sets: 5, reps: '6-8', rest: '120s' },
+        sentadillaPL: { name: 'Sentadilla peso libre', type: 'series', sets: 4, reps: '15', rest: '45s' },
+        hackSquat: { name: 'Hack Squat', type: 'series', sets: 4, reps: '8-10', rest: '90s' },
+        prensa: { name: 'Prensa 45°', type: 'series', sets: 4, reps: '10-12', rest: '90s' },
+        curlFemoral: { name: 'Curl femoral', type: 'series', sets: 3, reps: '12', rest: '60s' },
+        extQuad: { name: 'Extensión de cuádriceps', type: 'series', sets: 3, reps: '12', rest: '60s' },
+        gemelos: { name: 'Gemelos de pie', type: 'series', sets: 4, reps: '15', rest: '45s' },
+        sentadillaBulgara: { name: 'Sentadilla búlgara', type: 'series', sets: 4, reps: '10 c/p', rest: '90s' },
+        hipThrust: { name: 'Hip thrust', type: 'series', sets: 4, reps: '10', rest: '90s' },
+        zancadas: { name: 'Zancadas con mancuernas', type: 'series', sets: 3, reps: '12 c/p', rest: '60s' },
+        abdCadera: { name: 'Abducción de cadera', type: 'series', sets: 3, reps: '12', rest: '60s' },
+        sentadillaGoblet: { name: 'Sentadilla goblet', type: 'series', sets: 3, reps: '15', rest: '45s' },
+        sentadillaSalto: { name: 'Sentadillas con salto', type: 'series', sets: 4, reps: '15', rest: '60s' },
+        pressMilitar: { name: 'Press militar', type: 'series', sets: 4, reps: '8-10', rest: '90s' },
+        elevLaterales: { name: 'Elevaciones laterales', type: 'series', sets: 4, reps: '12-15', rest: '45s' },
+        pajaros: { name: 'Pájaros', type: 'series', sets: 3, reps: '12', rest: '60s' },
+        pressHombroSentado: { name: 'Press hombro sentado', type: 'series', sets: 3, reps: '12', rest: '60s' },
+        encogimientos: { name: 'Encogimientos de hombros', type: 'series', sets: 3, reps: '15', rest: '45s' },
+        plancha: { name: 'Plancha', type: 'series', sets: 3, reps: '45s', rest: '30s' },
+        planchaLateral: { name: 'Plancha lateral', type: 'series', sets: 3, reps: '30s c/l', rest: '30s' },
+        crunchPolea: { name: 'Crunch en polea', type: 'series', sets: 3, reps: '15', rest: '45s' },
+        abdominalesBici: { name: 'Abdominales bicicleta', type: 'series', sets: 3, reps: '20', rest: '30s' },
+        abdominales: { name: 'Abdominales', type: 'series', sets: 3, reps: '20', rest: '30s' },
+        calCardio: { name: 'Calentamiento en cinta', type: 'series', sets: 1, reps: '10 min', rest: '-' },
+        burpees: { name: 'Burpees', type: 'series', sets: 4, reps: '10', rest: '60s' },
+        mountainClimbers: { name: 'Mountain climbers', type: 'series', sets: 4, reps: '30s', rest: '30s' },
+        boxJumps: { name: 'Box jumps', type: 'series', sets: 4, reps: '10', rest: '60s' },
+        saltoCuerda: { name: 'Saltar la cuerda', type: 'series', sets: 5, reps: '1 min', rest: '30s' },
+        hiit: { name: 'Circuito HIIT', type: 'series', sets: 5, reps: '40/20', rest: '60s' },
+        cinta: { name: 'Caminar en cinta', type: 'series', sets: 1, reps: '15 min', rest: '-' },
+        cintaTrote: { name: 'Trote en cinta', type: 'series', sets: 1, reps: '20 min', rest: '-' },
+        bici: { name: 'Bicicleta estática', type: 'series', sets: 1, reps: '20 min', rest: '-' },
+        biciIntervalos: { name: 'Bici - Intervalos', type: 'series', sets: 6, reps: '30s/30s', rest: '60s' },
+        eliptico: { name: 'Elíptico', type: 'series', sets: 1, reps: '20 min', rest: '-' },
+        remoErgo: { name: 'Remo ergómetro', type: 'series', sets: 4, reps: '500m', rest: '90s' },
+        kettlebellSwing: { name: 'Kettlebell swings', type: 'series', sets: 4, reps: '20', rest: '60s' },
+        farmer: { name: 'Farmer walks', type: 'series', sets: 4, reps: '30m', rest: '60s' },
+        sledPush: { name: 'Empuje de trineo', type: 'series', sets: 4, reps: '20m', rest: '90s' },
+        battleRopes: { name: 'Cuerda de batalla', type: 'series', sets: 4, reps: '30s', rest: '30s' },
+        shadowBoxing: { name: 'Shadow boxing', type: 'series', sets: 3, reps: '3 min', rest: '60s' },
+        saquito: { name: 'Combinaciones en saquito', type: 'series', sets: 5, reps: '2 min', rest: '60s' },
+        yogaSerie: { name: 'Saludo al sol', type: 'series', sets: 5, reps: '1 vuelta', rest: '30s' },
+        movilidadHombro: { name: 'Movilidad de hombros', type: 'series', sets: 2, reps: '10 c/l', rest: '20s' },
+        cardiodance: { name: 'Cardio dance', type: 'series', sets: 1, reps: '30 min', rest: '-' },
+        zumba: { name: 'Coreografía Zumba', type: 'series', sets: 4, reps: '3 min', rest: '30s' },
+      };
+      const ses = (n, focus, ...keys) => ({ number: n, focus, exercises: keys.map(k => typeof k === 'string' ? EX[k] : k), validated: null });
+      const v = (s, d) => ({ ...s, validated: d });
+
+      return {
       gym: {
         name: 'Tiempo Vital',
         tagline: '¡Hoy es un gran día para que entrenemos juntos!',
@@ -98,10 +169,21 @@
             { date: '2026-03-15', value: 92.2 }, { date: '2026-04-20', value: 91.5 }, { date: '2026-05-18', value: 91 }
           ],
           bodyFat: 18.5, muscleMass: 38.2,
+          exerciseLogs: {
+            'r1__Press banca con barra': [
+              { date: '2026-03-31', sessionN: 1, sets: [{weight: 60, reps: 10}, {weight: 65, reps: 10}, {weight: 70, reps: 8}, {weight: 70, reps: 8}] },
+              { date: '2026-04-14', sessionN: 5, sets: [{weight: 65, reps: 10}, {weight: 70, reps: 10}, {weight: 75, reps: 8}, {weight: 75, reps: 8}] },
+              { date: '2026-05-05', sessionN: 14, sets: [{weight: 70, reps: 10}, {weight: 75, reps: 10}, {weight: 80, reps: 8}, {weight: 80, reps: 7}] },
+            ],
+            'r1__Sentadilla con barra': [
+              { date: '2026-04-10', sessionN: 3, sets: [{weight: 80, reps: 8}, {weight: 90, reps: 8}, {weight: 100, reps: 6}, {weight: 100, reps: 6}, {weight: 100, reps: 5}] },
+              { date: '2026-05-12', sessionN: 18, sets: [{weight: 90, reps: 8}, {weight: 100, reps: 8}, {weight: 110, reps: 6}, {weight: 110, reps: 6}, {weight: 110, reps: 5}] },
+            ],
+          },
         },
         {
           id: 'c2', name: 'María González', dni: '32555444', email: 'maria@mail.com', phone: '1133221100',
-          joinDate: '2025-03-10', plan: 'Mensual', monthlyFee: 18000, currentRoutineId: 'r2', currentSession: 8,
+          joinDate: '2025-03-10', plan: 'Mensual', monthlyFee: 18000, currentRoutineId: 'r9', currentSession: 8,
           active: true, motivation: 'Vas por buen camino, ¡seguí así!',
           weights: [
             { date: '2026-03-01', value: 68 }, { date: '2026-04-05', value: 66.5 }, { date: '2026-05-10', value: 65.2 }
@@ -110,163 +192,317 @@
         },
         {
           id: 'c3', name: 'Carlos Ruiz', dni: '28999888', email: 'carlos@mail.com', phone: '1199887766',
-          joinDate: '2024-11-01', plan: 'Mensual', monthlyFee: 18000, currentRoutineId: 'r3', currentSession: 5,
+          joinDate: '2024-11-01', plan: 'Mensual', monthlyFee: 18000, currentRoutineId: 'r13', currentSession: 5,
           active: true, motivation: 'Cada entrenamiento te acerca a tu objetivo',
           weights: [{ date: '2026-05-01', value: 82 }], bodyFat: 22, muscleMass: 32,
         },
         {
           id: 'c4', name: 'Lucía Fernández', dni: '35222111', email: 'lucia@mail.com', phone: '1166554433',
-          joinDate: '2026-02-20', plan: 'Mensual', monthlyFee: 18000, currentRoutineId: 'r4', currentSession: 3,
+          joinDate: '2026-02-20', plan: 'Mensual', monthlyFee: 18000, currentRoutineId: 'r17', currentSession: 3,
           active: true, motivation: 'El progreso es constancia',
           weights: [{ date: '2026-05-15', value: 58 }], bodyFat: 20, muscleMass: 26,
         },
       ],
+      categories: [
+        { id: 'cat1', name: 'Aumento de masa muscular', image: IMG.aumentoMasa, description: 'Rutinas para ganar volumen y fuerza muscular' },
+        { id: 'cat2', name: 'Recomposición corporal', image: IMG.recomposicion, description: 'Bajá grasa y ganá músculo al mismo tiempo' },
+        { id: 'cat3', name: 'Tonificación', image: IMG.tonificacion, description: 'Definí músculo y mejorá tu silueta' },
+        { id: 'cat4', name: 'Acondicionamiento', image: IMG.acondicionamiento, description: 'Mejorá tu capacidad física general' },
+        { id: 'cat5', name: 'Adelgazar / Oxidación de grasa', image: IMG.adelgazar, description: 'Acelerá la pérdida de grasa con HIIT y cardio' },
+        { id: 'cat6', name: 'Aeróbico', image: IMG.aerobico, description: 'Cardio sostenido para resistencia cardiovascular' },
+        { id: 'cat7', name: 'Diversión, desconexión', image: IMG.diversion, description: 'Entrenamientos lúdicos para distender' },
+      ],
       routines: [
+        // === cat1: Aumento de masa muscular ===
         {
-          id: 'r1', name: 'HIPERTROFIA 3. CINCO DIAS', level: 3, category: 'Aumento de masa muscular',
-          image: IMG.aumentoMasa, totalSessions: 25, daysPerWeek: 5,
-          description: 'Rutina avanzada de hipertrofia con 5 entrenamientos semanales enfocados en cada grupo muscular.',
+          id: 'r1', categoryId: 'cat1', name: 'HIPERTROFIA 3. CINCO DÍAS', level: 3, weeks: 5, daysPerWeek: 5, totalSessions: 25, image: IMG.aumentoMasa,
+          description: 'Rutina avanzada de hipertrofia con 5 entrenamientos semanales.',
           sessions: [
-            { number: 1, focus: 'Pecho y Tríceps', exercises: [
-              { name: 'Press banca con barra', type: 'series', sets: 4, reps: '8-10', rest: '90s' },
-              { name: 'Press inclinado mancuernas', type: 'series', sets: 4, reps: '10', rest: '90s' },
-              { name: 'Aperturas en polea', type: 'series', sets: 3, reps: '12', rest: '60s' },
-              { name: 'Fondos en paralelas', type: 'series', sets: 3, reps: '12', rest: '60s' },
-              { name: 'Extensión tríceps polea', type: 'series', sets: 4, reps: '12-15', rest: '60s' },
-            ], validated: '2026-03-31' },
-            { number: 2, focus: 'Espalda y Bíceps', exercises: [
-              { name: 'Dominadas', type: 'series', sets: 4, reps: '8-10', rest: '90s' },
-              { name: 'Remo con barra', type: 'series', sets: 4, reps: '10', rest: '90s' },
-              { name: 'Jalón al pecho', type: 'series', sets: 3, reps: '12', rest: '60s' },
-              { name: 'Curl con barra', type: 'series', sets: 4, reps: '10-12', rest: '60s' },
-              { name: 'Curl martillo', type: 'series', sets: 3, reps: '12', rest: '60s' },
-            ], validated: '2026-04-08' },
-            { number: 3, focus: 'Piernas completo', exercises: [
-              { name: 'Sentadilla con barra', type: 'series', sets: 5, reps: '6-8', rest: '120s' },
-              { name: 'Hack Squat', type: 'series', sets: 4, reps: '8-10', rest: '90s' },
-              { name: 'Prensa 45°', type: 'series', sets: 4, reps: '10-12', rest: '90s' },
-              { name: 'Curl femoral', type: 'series', sets: 3, reps: '12', rest: '60s' },
-              { name: 'Gemelos de pie', type: 'series', sets: 4, reps: '15', rest: '45s' },
-            ], validated: '2026-04-10' },
-            { number: 4, focus: 'Hombros y abdomen', exercises: [
-              { name: 'Press militar', type: 'series', sets: 4, reps: '8-10', rest: '90s' },
-              { name: 'Elevaciones laterales', type: 'series', sets: 4, reps: '12-15', rest: '45s' },
-              { name: 'Pájaros', type: 'series', sets: 3, reps: '12', rest: '60s' },
-              { name: 'Plancha', type: 'series', sets: 3, reps: '45s', rest: '30s' },
-              { name: 'Crunch en polea', type: 'series', sets: 3, reps: '15', rest: '45s' },
-            ], validated: '2026-04-13' },
-            { number: 5, focus: 'Pecho y Tríceps', exercises: [
-              { name: 'Press inclinado barra', type: 'series', sets: 5, reps: '6-8', rest: '120s' },
-              { name: 'Press plano mancuernas', type: 'series', sets: 4, reps: '10', rest: '90s' },
-              { name: 'Cruces polea alta', type: 'series', sets: 3, reps: '12', rest: '60s' },
-              { name: 'Press francés', type: 'series', sets: 4, reps: '10-12', rest: '60s' },
-            ], validated: '2026-04-14' },
-            { number: 6, focus: 'Espalda y Bíceps', exercises: [
-              { name: 'Peso muerto', type: 'series', sets: 5, reps: '5', rest: '180s' },
-              { name: 'Remo en T', type: 'series', sets: 4, reps: '10', rest: '90s' },
-              { name: 'Pullover', type: 'series', sets: 3, reps: '12', rest: '60s' },
-              { name: 'Curl predicador', type: 'series', sets: 3, reps: '10-12', rest: '60s' },
-            ], validated: '2026-04-15' },
-            { number: 7, focus: 'Piernas y glúteos', exercises: [
-              { name: 'Sentadilla búlgara', type: 'series', sets: 4, reps: '10 c/p', rest: '90s' },
-              { name: 'Hip thrust', type: 'series', sets: 4, reps: '10', rest: '90s' },
-              { name: 'Peso muerto rumano', type: 'series', sets: 4, reps: '10', rest: '90s' },
-              { name: 'Abducción de cadera', type: 'series', sets: 3, reps: '12', rest: '60s' },
-            ], validated: '2026-04-17' },
-            ...Array.from({length: 13}, (_, i) => ({
-              number: i + 8,
-              focus: ['Pecho y Tríceps','Espalda y Bíceps','Piernas completo','Hombros y abdomen','Piernas y glúteos'][i % 5],
-              exercises: [
-                { name: 'Calentamiento', type: 'series', sets: 1, reps: '10 min', rest: '-' },
-                { name: 'Ejercicio principal', type: 'series', sets: 4, reps: '10', rest: '90s' },
-                { name: 'Ejercicio secundario', type: 'series', sets: 4, reps: '12', rest: '60s' },
-                { name: 'Accesorio', type: 'series', sets: 3, reps: '15', rest: '45s' },
-              ],
-              validated: i + 8 <= 20 ? `2026-05-${String(i+1).padStart(2,'0')}` : null,
-            })),
-            { number: 21, focus: 'Pecho y Tríceps', exercises: [
-              { name: 'Series en bicicleta de ciclo indoor', type: 'series', sets: 1, reps: '10 min', rest: '-' },
-              { name: 'Estiramiento cruzado anterior - Derecha', type: 'series', sets: 2, reps: '10', rest: '30s' },
-              { name: 'Estiramiento cruzado anterior - Izquierda', type: 'series', sets: 2, reps: '10', rest: '30s' },
-              { name: 'Movilidad torácica en cuadrupedia', type: 'series', sets: 2, reps: '10 c/l', rest: '30s' },
-              { name: 'Sentadilla con barra', type: 'series', sets: 4, reps: '8', rest: '90s' },
-              { name: 'PR - Desplantes', type: 'series', sets: 4, reps: '10 c/l', rest: '60s' },
-              { name: 'Curl de bíceps + Press Militar con mancuernas', type: 'series', sets: 4, reps: '10', rest: '60s' },
-              { name: 'Hack Squat', type: 'series', sets: 4, reps: '5', rest: '90s' },
-              { name: 'Abducción de cadera en máquina', type: 'series', sets: 3, reps: '12', rest: '60s' },
-              { name: 'AMS - Vuelo Lateral', type: 'series', sets: 3, reps: '10', rest: '60s' },
-              { name: 'Caminar en Cinta', type: 'series', sets: 1, reps: '10 min', rest: '-' },
-            ], validated: null },
-            ...Array.from({length: 4}, (_, i) => ({
-              number: i + 22,
-              focus: ['Espalda y Bíceps','Piernas completo','Hombros y abdomen','Pecho y Tríceps'][i],
-              exercises: [
-                { name: 'Calentamiento', type: 'series', sets: 1, reps: '10 min', rest: '-' },
-                { name: 'Ejercicio principal', type: 'series', sets: 4, reps: '10', rest: '90s' },
-                { name: 'Accesorio', type: 'series', sets: 3, reps: '15', rest: '45s' },
-              ],
-              validated: null,
-            })),
+            v(ses(1, 'Pecho y Tríceps', 'pressBanca', 'pressInclinadoMan', 'aperturasPolea', 'fondos', 'triPolea'), '2026-03-31'),
+            v(ses(2, 'Espalda y Bíceps', 'dominadas', 'remoBarra', 'jalonPecho', 'curlBarra', 'curlMartillo'), '2026-04-08'),
+            v(ses(3, 'Piernas', 'sentadilla', 'hackSquat', 'prensa', 'curlFemoral', 'gemelos'), '2026-04-10'),
+            v(ses(4, 'Hombros y abdomen', 'pressMilitar', 'elevLaterales', 'pajaros', 'plancha', 'crunchPolea'), '2026-04-13'),
+            v(ses(5, 'Pecho y Tríceps', 'pressInclinadoMan', 'pressBanca', 'crucesPolea', 'pressFrances'), '2026-04-14'),
+            v(ses(6, 'Espalda y Bíceps', 'pesoMuerto', 'remoT', 'pullover', 'curlPredicador'), '2026-04-15'),
+            v(ses(7, 'Piernas y glúteos', 'sentadillaBulgara', 'hipThrust', 'pesoMuertoRumano', 'abdCadera'), '2026-04-17'),
+            v(ses(8, 'Hombros', 'pressMilitar', 'elevLaterales', 'encogimientos'), '2026-04-19'),
+            v(ses(9, 'Pecho y Tríceps', 'pressBanca', 'pressInclinadoMan', 'fondos', 'triPolea'), '2026-04-21'),
+            v(ses(10, 'Espalda y Bíceps', 'dominadas', 'remoBarra', 'curlBarra'), '2026-04-23'),
+            v(ses(11, 'Piernas', 'sentadilla', 'prensa', 'curlFemoral', 'gemelos'), '2026-04-25'),
+            v(ses(12, 'Hombros y abdomen', 'pressMilitar', 'pajaros', 'plancha'), '2026-04-27'),
+            v(ses(13, 'Pecho y Tríceps', 'pressInclinadoMan', 'crucesPolea', 'triPolea'), '2026-04-29'),
+            v(ses(14, 'Espalda y Bíceps', 'pesoMuerto', 'jalonPecho', 'curlMartillo'), '2026-05-01'),
+            v(ses(15, 'Piernas', 'sentadilla', 'sentadillaBulgara', 'hipThrust'), '2026-05-03'),
+            v(ses(16, 'Hombros y abdomen', 'pressMilitar', 'elevLaterales', 'crunchPolea'), '2026-05-05'),
+            v(ses(17, 'Pecho y Tríceps', 'pressBanca', 'aperturasPolea', 'pressFrances'), '2026-05-07'),
+            v(ses(18, 'Espalda y Bíceps', 'dominadas', 'remoT', 'curlPredicador'), '2026-05-09'),
+            v(ses(19, 'Piernas', 'sentadilla', 'hackSquat', 'curlFemoral'), '2026-05-11'),
+            v(ses(20, 'Hombros', 'pressMilitar', 'elevLaterales', 'pajaros'), '2026-05-13'),
+            ses(21, 'Full body integrador', 'calCardio', 'pressBanca', 'sentadilla', 'pressInclinadoMan', 'curlBarra', 'pressMilitar', 'hackSquat', 'elevLaterales', 'gemelos', 'cinta'),
+            ses(22, 'Espalda y Bíceps', 'calCardio', 'pesoMuerto', 'remoBarra', 'curlBarra', 'jalonPecho'),
+            ses(23, 'Piernas', 'sentadilla', 'prensa', 'curlFemoral', 'gemelos'),
+            ses(24, 'Hombros y abdomen', 'pressMilitar', 'elevLaterales', 'pajaros', 'crunchPolea'),
+            ses(25, 'Pecho y Tríceps', 'pressBanca', 'pressInclinadoMan', 'fondos', 'pressFrances'),
           ],
         },
         {
-          id: 'r2', name: 'TONIFICACIÓN INTERMEDIO', level: 2, category: 'Tonificación',
-          image: IMG.tonificacion, totalSessions: 18, daysPerWeek: 3,
-          description: 'Rutina enfocada en tonificación general, ideal para mantener forma y definición.',
-          sessions: Array.from({length: 18}, (_, i) => ({
-            number: i + 1,
-            focus: ['Tren superior','Tren inferior','Full body'][i % 3],
-            exercises: [
-              { name: 'Calentamiento cardio', type: 'series', sets: 1, reps: '10 min', rest: '-' },
-              { name: 'Sentadilla goblet', type: 'series', sets: 3, reps: '15', rest: '45s' },
-              { name: 'Remo con mancuerna', type: 'series', sets: 3, reps: '12', rest: '60s' },
-              { name: 'Press hombro sentado', type: 'series', sets: 3, reps: '12', rest: '60s' },
-              { name: 'Plancha', type: 'series', sets: 3, reps: '40s', rest: '30s' },
-            ],
-            validated: i < 8 ? `2026-05-${String(i+1).padStart(2,'0')}` : null,
-          })),
+          id: 'r2', categoryId: 'cat1', name: 'HIPERTROFIA AVANZADO 6 DÍAS', level: 4, weeks: 8, daysPerWeek: 6, totalSessions: 48, image: IMG.aumentoMasa,
+          description: 'Para atletas avanzados que ya entrenan al menos 1 año seguido.',
+          sessions: [
+            ses(1, 'Push (Pecho/Hombro/Tri)', 'pressBanca', 'pressInclinadoMan', 'pressMilitar', 'elevLaterales', 'triPolea'),
+            ses(2, 'Pull (Espalda/Bíceps)', 'dominadas', 'remoBarra', 'jalonPecho', 'curlBarra', 'curlMartillo'),
+            ses(3, 'Legs (Piernas pesado)', 'sentadilla', 'hackSquat', 'curlFemoral', 'gemelos'),
+            ses(4, 'Push variación', 'pressInclinadoMan', 'aperturasPolea', 'pressMilitar', 'pressFrances'),
+            ses(5, 'Pull variación', 'pesoMuerto', 'remoT', 'pullover', 'curlPredicador'),
+            ses(6, 'Legs glúteos', 'sentadillaBulgara', 'hipThrust', 'pesoMuertoRumano', 'abdCadera'),
+          ],
         },
         {
-          id: 'r3', name: 'ACONDICIONAMIENTO', level: 2, category: 'Acondicionamiento',
-          image: IMG.acondicionamiento, totalSessions: 12, daysPerWeek: 3,
-          description: 'Mejora tu capacidad aeróbica y resistencia general.',
-          sessions: Array.from({length: 12}, (_, i) => ({
-            number: i + 1, focus: 'Acondicionamiento general',
-            exercises: [
-              { name: 'Cinta - Calentamiento', type: 'series', sets: 1, reps: '8 min', rest: '-' },
-              { name: 'Burpees', type: 'series', sets: 4, reps: '10', rest: '60s' },
-              { name: 'Sentadillas con salto', type: 'series', sets: 4, reps: '15', rest: '60s' },
-              { name: 'Mountain climbers', type: 'series', sets: 4, reps: '30s', rest: '30s' },
-            ],
-            validated: i < 5 ? `2026-05-${String(i+5).padStart(2,'0')}` : null,
-          })),
+          id: 'r3', categoryId: 'cat1', name: 'FUERZA 4X SEMANA', level: 3, weeks: 6, daysPerWeek: 4, totalSessions: 24, image: IMG.aumentoMasa,
+          description: 'Foco en levantamientos pesados y series cortas para máxima fuerza.',
+          sessions: [
+            ses(1, 'Sentadilla pesada', 'sentadilla', 'prensa', 'curlFemoral', 'gemelos'),
+            ses(2, 'Banca pesada', 'pressBanca', 'pressInclinadoMan', 'triPolea'),
+            ses(3, 'Peso muerto', 'pesoMuerto', 'remoBarra', 'curlBarra'),
+            ses(4, 'Press militar', 'pressMilitar', 'elevLaterales', 'pajaros'),
+          ],
         },
         {
-          id: 'r4', name: 'ADELGAZAR / OXIDACIÓN DE GRASA', level: 1, category: 'Adelgazar',
-          image: IMG.adelgazar, totalSessions: 15, daysPerWeek: 4,
+          id: 'r4', categoryId: 'cat1', name: 'FUERZA PRINCIPIANTE 3X', level: 1, weeks: 4, daysPerWeek: 3, totalSessions: 12, image: IMG.aumentoMasa,
+          description: 'Introducción al entrenamiento de fuerza, con máquinas y peso libre liviano.',
+          sessions: [
+            ses(1, 'Full body A', 'sentadillaGoblet', 'pressBanca', 'jalonPecho', 'plancha'),
+            ses(2, 'Full body B', 'prensa', 'remoMancuerna', 'pressHombroSentado', 'abdominales'),
+            ses(3, 'Full body C', 'sentadilla', 'pressBanca', 'remoBarra', 'plancha'),
+          ],
+        },
+
+        // === cat2: Recomposición corporal ===
+        {
+          id: 'r5', categoryId: 'cat2', name: 'RECOMP HOMBRE 4 DÍAS', level: 3, weeks: 6, daysPerWeek: 4, totalSessions: 24, image: IMG.recomposicion,
+          description: 'Combina fuerza con cardio HIIT para perder grasa sin perder músculo.',
+          sessions: [
+            ses(1, 'Push + HIIT', 'pressBanca', 'pressMilitar', 'fondos', 'hiit'),
+            ses(2, 'Pull + Cardio', 'dominadas', 'remoBarra', 'curlBarra', 'cintaTrote'),
+            ses(3, 'Piernas + Core', 'sentadilla', 'hipThrust', 'plancha', 'mountainClimbers'),
+            ses(4, 'Full body metabólico', 'burpees', 'sentadillaSalto', 'kettlebellSwing', 'battleRopes'),
+          ],
+        },
+        {
+          id: 'r6', categoryId: 'cat2', name: 'RECOMP MUJER 3 DÍAS', level: 2, weeks: 8, daysPerWeek: 3, totalSessions: 24, image: IMG.recomposicion,
+          description: 'Programa femenino enfocado en glúteos, piernas y core con cardio sostenido.',
+          sessions: [
+            ses(1, 'Tren inferior + cardio', 'sentadillaGoblet', 'hipThrust', 'sentadillaBulgara', 'cinta'),
+            ses(2, 'Tren superior + cardio', 'pressBanca', 'remoMancuerna', 'curlBarra', 'eliptico'),
+            ses(3, 'Full body + core', 'kettlebellSwing', 'flexiones', 'sentadillaPL', 'plancha'),
+          ],
+        },
+        {
+          id: 'r7', categoryId: 'cat2', name: 'HIPERTROFIA + CARDIO 5X', level: 3, weeks: 6, daysPerWeek: 5, totalSessions: 30, image: IMG.recomposicion,
+          description: 'Volumen muscular con cardio post-entrenamiento.',
+          sessions: [
+            ses(1, 'Pecho/Tríceps + 15min cardio', 'pressBanca', 'pressInclinadoMan', 'triPolea', 'cinta'),
+            ses(2, 'Espalda/Bíceps + 15min cardio', 'dominadas', 'remoT', 'curlBarra', 'eliptico'),
+            ses(3, 'Piernas + 15min cardio', 'sentadilla', 'prensa', 'gemelos', 'bici'),
+            ses(4, 'Hombros + HIIT', 'pressMilitar', 'elevLaterales', 'hiit'),
+          ],
+        },
+        {
+          id: 'r8', categoryId: 'cat2', name: 'CIRCUITO METABÓLICO 4X', level: 2, weeks: 4, daysPerWeek: 4, totalSessions: 16, image: IMG.recomposicion,
+          description: 'Circuitos de alta intensidad para acelerar el metabolismo.',
+          sessions: [
+            ses(1, 'Circuito A', 'burpees', 'sentadillaSalto', 'kettlebellSwing', 'mountainClimbers', 'plancha'),
+            ses(2, 'Circuito B', 'boxJumps', 'flexiones', 'remoErgo', 'farmer'),
+            ses(3, 'Circuito C', 'battleRopes', 'sledPush', 'sentadillaPL', 'abdominalesBici'),
+          ],
+        },
+
+        // === cat3: Tonificación ===
+        {
+          id: 'r9', categoryId: 'cat3', name: 'TONIFICACIÓN INTERMEDIO', level: 2, weeks: 6, daysPerWeek: 3, totalSessions: 18, image: IMG.tonificacion,
+          description: 'Tonificación general con peso medio y reps altas.',
+          sessions: [
+            ses(1, 'Tren superior', 'pressBanca', 'remoMancuerna', 'pressHombroSentado', 'curlMartillo'),
+            ses(2, 'Tren inferior', 'sentadillaGoblet', 'sentadillaBulgara', 'hipThrust', 'gemelos'),
+            ses(3, 'Full body', 'flexiones', 'jalonPecho', 'sentadillaPL', 'plancha'),
+          ],
+        },
+        {
+          id: 'r10', categoryId: 'cat3', name: 'TONIFICACIÓN PRINCIPIANTE', level: 1, weeks: 4, daysPerWeek: 3, totalSessions: 12, image: IMG.tonificacion,
+          description: 'Primer contacto con la tonificación, sin máquinas pesadas.',
+          sessions: [
+            ses(1, 'Full body A', 'sentadillaGoblet', 'pressHombroSentado', 'remoMancuerna', 'plancha'),
+            ses(2, 'Full body B', 'flexiones', 'sentadillaPL', 'jalonPecho', 'abdominales'),
+            ses(3, 'Full body C', 'hipThrust', 'curlMartillo', 'pressBanca', 'plancha'),
+          ],
+        },
+        {
+          id: 'r11', categoryId: 'cat3', name: 'DEFINICIÓN AVANZADA', level: 4, weeks: 8, daysPerWeek: 5, totalSessions: 40, image: IMG.tonificacion,
+          description: 'Series largas con poco descanso para definición muscular máxima.',
+          sessions: [
+            ses(1, 'Pecho/Tríceps (superseries)', 'pressInclinadoMan', 'crucesPolea', 'fondos', 'triPolea'),
+            ses(2, 'Espalda/Bíceps (superseries)', 'dominadas', 'remoT', 'jalonPecho', 'curlPredicador'),
+            ses(3, 'Piernas (drop sets)', 'sentadilla', 'hackSquat', 'curlFemoral', 'extQuad'),
+            ses(4, 'Hombros + abdomen', 'pressMilitar', 'elevLaterales', 'crunchPolea'),
+          ],
+        },
+        {
+          id: 'r12', categoryId: 'cat3', name: 'TONO MUJER FULL BODY 3X', level: 2, weeks: 5, daysPerWeek: 3, totalSessions: 15, image: IMG.tonificacion,
+          description: 'Rutina full body con énfasis en piernas y glúteos.',
+          sessions: [
+            ses(1, 'Piernas y glúteos', 'sentadillaGoblet', 'hipThrust', 'sentadillaBulgara', 'abdCadera'),
+            ses(2, 'Tren superior + core', 'pressHombroSentado', 'remoMancuerna', 'flexiones', 'plancha'),
+            ses(3, 'Full body', 'kettlebellSwing', 'sentadillaPL', 'curlMartillo', 'abdominales'),
+          ],
+        },
+
+        // === cat4: Acondicionamiento ===
+        {
+          id: 'r13', categoryId: 'cat4', name: 'ACONDICIONAMIENTO GENERAL', level: 2, weeks: 4, daysPerWeek: 3, totalSessions: 12, image: IMG.acondicionamiento,
+          description: 'Mejorá tu capacidad aeróbica y resistencia general.',
+          sessions: [
+            ses(1, 'Aeróbico + funcional', 'calCardio', 'burpees', 'sentadillaSalto', 'mountainClimbers'),
+            ses(2, 'Circuito de fuerza', 'flexiones', 'remoMancuerna', 'sentadillaPL', 'plancha'),
+            ses(3, 'HIIT', 'hiit', 'kettlebellSwing', 'battleRopes'),
+          ],
+        },
+        {
+          id: 'r14', categoryId: 'cat4', name: 'CALISTENIA INTERMEDIO', level: 2, weeks: 6, daysPerWeek: 4, totalSessions: 24, image: IMG.acondicionamiento,
+          description: 'Entrená sólo con tu peso corporal.',
+          sessions: [
+            ses(1, 'Tren superior', 'flexiones', 'dominadasAsist', 'fondos', 'plancha'),
+            ses(2, 'Tren inferior', 'sentadillaPL', 'sentadillaBulgara', 'zancadas', 'sentadillaSalto'),
+            ses(3, 'Core', 'plancha', 'planchaLateral', 'abdominalesBici', 'mountainClimbers'),
+          ],
+        },
+        {
+          id: 'r15', categoryId: 'cat4', name: 'FUNCIONAL 3 DÍAS', level: 2, weeks: 5, daysPerWeek: 3, totalSessions: 15, image: IMG.acondicionamiento,
+          description: 'Movimientos funcionales para mejorar el día a día.',
+          sessions: [
+            ses(1, 'Tracción + empuje', 'kettlebellSwing', 'flexiones', 'remoMancuerna', 'farmer'),
+            ses(2, 'Piernas funcionales', 'sentadillaGoblet', 'zancadas', 'boxJumps', 'sledPush'),
+            ses(3, 'Core funcional', 'plancha', 'battleRopes', 'planchaLateral', 'mountainClimbers'),
+          ],
+        },
+        {
+          id: 'r16', categoryId: 'cat4', name: 'VUELTA AL EJERCICIO', level: 1, weeks: 4, daysPerWeek: 3, totalSessions: 12, image: IMG.acondicionamiento,
+          description: 'Rutina suave para reincorporarte al ejercicio después de un parón.',
+          sessions: [
+            ses(1, 'Movilidad y suave', 'cinta', 'movilidadHombro', 'sentadillaPL', 'plancha'),
+            ses(2, 'Aeróbico ligero', 'bici', 'eliptico', 'abdominales'),
+            ses(3, 'Cuerpo entero suave', 'sentadillaGoblet', 'flexiones', 'remoMancuerna'),
+          ],
+        },
+
+        // === cat5: Adelgazar ===
+        {
+          id: 'r17', categoryId: 'cat5', name: 'ADELGAZAR / OXIDACIÓN GRASA', level: 1, weeks: 5, daysPerWeek: 4, totalSessions: 20, image: IMG.adelgazar,
           description: 'Combinación de cardio y fuerza para acelerar la pérdida de grasa.',
-          sessions: Array.from({length: 15}, (_, i) => ({
-            number: i + 1, focus: 'HIIT + Fuerza',
-            exercises: [
-              { name: 'Calentamiento', type: 'series', sets: 1, reps: '10 min', rest: '-' },
-              { name: 'Circuito HIIT', type: 'series', sets: 5, reps: '40/20', rest: '60s' },
-              { name: 'Sentadilla con peso', type: 'series', sets: 3, reps: '15', rest: '45s' },
-              { name: 'Plancha lateral', type: 'series', sets: 3, reps: '30s', rest: '30s' },
-            ],
-            validated: i < 3 ? `2026-05-${String(i+10).padStart(2,'0')}` : null,
-          })),
+          sessions: [
+            ses(1, 'HIIT + abdominales', 'hiit', 'mountainClimbers', 'plancha', 'abdominalesBici'),
+            ses(2, 'Cardio + tren inferior', 'cintaTrote', 'sentadillaGoblet', 'sentadillaBulgara', 'hipThrust'),
+            ses(3, 'Circuito quemagrasa', 'burpees', 'sentadillaSalto', 'flexiones', 'mountainClimbers'),
+            ses(4, 'Cardio largo', 'cintaTrote', 'bici'),
+          ],
         },
         {
-          id: 'r5', name: 'AERÓBICO', level: 1, category: 'Aeróbico',
-          image: IMG.aerobico, totalSessions: 12, daysPerWeek: 3,
-          description: 'Trabajo aeróbico continuo para mejorar resistencia cardiovascular.',
-          sessions: [],
+          id: 'r18', categoryId: 'cat5', name: 'HIIT QUEMAGRASA 4X', level: 3, weeks: 6, daysPerWeek: 4, totalSessions: 24, image: IMG.adelgazar,
+          description: 'Intervalos de alta intensidad para máximo gasto calórico.',
+          sessions: [
+            ses(1, 'HIIT tabata', 'burpees', 'mountainClimbers', 'sentadillaSalto', 'flexiones'),
+            ses(2, 'Circuito metabólico', 'kettlebellSwing', 'battleRopes', 'boxJumps', 'planchaLateral'),
+            ses(3, 'Cardio máquinas', 'biciIntervalos', 'remoErgo', 'eliptico'),
+          ],
         },
         {
-          id: 'r6', name: 'DIVERSIÓN, DESCONEXIÓN', level: 1, category: 'Recreativo',
-          image: IMG.diversion, totalSessions: 10, daysPerWeek: 2,
-          description: 'Entrenamiento divertido para desconectar del día.',
-          sessions: [],
+          id: 'r19', categoryId: 'cat5', name: 'CARDIO + FUERZA 5X', level: 2, weeks: 6, daysPerWeek: 5, totalSessions: 30, image: IMG.adelgazar,
+          description: 'Combinación equilibrada de fuerza y cardio para perder grasa.',
+          sessions: [
+            ses(1, 'Fuerza + 20min cardio', 'pressBanca', 'remoBarra', 'sentadillaGoblet', 'cinta'),
+            ses(2, 'HIIT + core', 'hiit', 'plancha', 'planchaLateral'),
+            ses(3, 'Cardio largo', 'cintaTrote', 'bici', 'abdominalesBici'),
+          ],
+        },
+        {
+          id: 'r20', categoryId: 'cat5', name: 'BAJAR DE PESO PRINCIPIANTE', level: 1, weeks: 4, daysPerWeek: 3, totalSessions: 12, image: IMG.adelgazar,
+          description: 'Rutina suave para empezar a bajar de peso.',
+          sessions: [
+            ses(1, 'Cardio moderado', 'cinta', 'bici', 'abdominales'),
+            ses(2, 'Fuerza ligera + cardio', 'sentadillaGoblet', 'pressHombroSentado', 'plancha', 'cinta'),
+            ses(3, 'Caminata + core', 'cintaTrote', 'plancha', 'abdominalesBici'),
+          ],
+        },
+
+        // === cat6: Aeróbico ===
+        {
+          id: 'r21', categoryId: 'cat6', name: 'AERÓBICO BÁSICO', level: 1, weeks: 4, daysPerWeek: 3, totalSessions: 12, image: IMG.aerobico,
+          description: 'Trabajo aeróbico continuo para mejorar resistencia.',
+          sessions: [
+            ses(1, 'Cinta progresiva', 'cinta', 'cintaTrote'),
+            ses(2, 'Bici', 'bici', 'biciIntervalos'),
+            ses(3, 'Elíptico + remo', 'eliptico', 'remoErgo'),
+          ],
+        },
+        {
+          id: 'r22', categoryId: 'cat6', name: 'CARDIO CONTINUO 4X', level: 2, weeks: 6, daysPerWeek: 4, totalSessions: 24, image: IMG.aerobico,
+          description: 'Sesiones largas de cardio para máxima quema calórica.',
+          sessions: [
+            ses(1, '45min en cinta', 'cintaTrote'),
+            ses(2, '45min bici', 'bici'),
+            ses(3, 'Combinado 60min', 'cinta', 'bici', 'eliptico'),
+          ],
+        },
+        {
+          id: 'r23', categoryId: 'cat6', name: 'RUNNING PROGRESIVO', level: 2, weeks: 8, daysPerWeek: 3, totalSessions: 24, image: IMG.aerobico,
+          description: 'Aumentá progresivamente tu capacidad de correr.',
+          sessions: [
+            ses(1, 'Trote intervalos cortos', 'calCardio', 'cintaTrote'),
+            ses(2, 'Trote continuo', 'cintaTrote'),
+            ses(3, 'Velocidad', 'calCardio', 'biciIntervalos', 'cintaTrote'),
+          ],
+        },
+        {
+          id: 'r24', categoryId: 'cat6', name: 'CICLISMO INDOOR', level: 1, weeks: 4, daysPerWeek: 3, totalSessions: 12, image: IMG.aerobico,
+          description: 'Sesiones de bici estática con distintos perfiles.',
+          sessions: [
+            ses(1, 'Bici constante 30min', 'bici'),
+            ses(2, 'Bici intervalos', 'biciIntervalos'),
+            ses(3, 'Spinning libre 45min', 'bici', 'biciIntervalos'),
+          ],
+        },
+
+        // === cat7: Diversión, desconexión ===
+        {
+          id: 'r25', categoryId: 'cat7', name: 'DIVERSIÓN, DESCONEXIÓN', level: 1, weeks: 4, daysPerWeek: 2, totalSessions: 8, image: IMG.diversion,
+          description: 'Entrenamientos divertidos para desconectar del día.',
+          sessions: [
+            ses(1, 'Circuito en parejas', 'kettlebellSwing', 'boxJumps', 'flexiones', 'plancha'),
+            ses(2, 'Juegos funcionales', 'battleRopes', 'farmer', 'sledPush', 'sentadillaSalto'),
+          ],
+        },
+        {
+          id: 'r26', categoryId: 'cat7', name: 'CIRCUITO GRUPAL', level: 1, weeks: 3, daysPerWeek: 2, totalSessions: 6, image: IMG.diversion,
+          description: 'Circuitos en grupo, ideal para socializar mientras entrenás.',
+          sessions: [
+            ses(1, 'Estaciones', 'burpees', 'kettlebellSwing', 'battleRopes', 'mountainClimbers'),
+            ses(2, 'Relay', 'sentadillaSalto', 'boxJumps', 'farmer'),
+          ],
+        },
+        {
+          id: 'r27', categoryId: 'cat7', name: 'ZUMBA / BAILE', level: 1, weeks: 4, daysPerWeek: 2, totalSessions: 8, image: IMG.diversion,
+          description: 'Cardio bailando, sin darte cuenta de que estás entrenando.',
+          sessions: [
+            ses(1, 'Zumba clásica', 'cardiodance', 'zumba'),
+            ses(2, 'Zumba latina', 'cardiodance', 'zumba'),
+          ],
+        },
+        {
+          id: 'r28', categoryId: 'cat7', name: 'BOXEO RECREATIVO', level: 2, weeks: 5, daysPerWeek: 2, totalSessions: 10, image: IMG.diversion,
+          description: 'Boxeo orientado al fitness, sin contacto.',
+          sessions: [
+            ses(1, 'Técnica básica', 'saltoCuerda', 'shadowBoxing', 'plancha'),
+            ses(2, 'Combinaciones', 'shadowBoxing', 'saquito', 'abdominalesBici'),
+          ],
         },
       ],
       payments: [
@@ -291,10 +527,11 @@
         { id: 'av5', clientId: 'c1', date: '2026-05-14', sessionN: 20 },
         { id: 'av6', clientId: 'c1', date: '2026-05-20', sessionN: 20 },
       ],
-    });
+      };
+    };
 
     // ===================== STORAGE =====================
-    const STORAGE_KEY = 'tiempovital_v1';
+    const STORAGE_KEY = 'tiempovital_v2';
     const loadData = () => {
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
@@ -651,16 +888,15 @@
       const routine = data.routines.find(r => r.id === client.currentRoutineId);
       return (
         <div className="p-4 space-y-4 fade-in">
-          {routine && (
-            <button onClick={() => push({ type: 'rutina', id: routine.id })} className="block w-full text-left">
-              <ImageHero src={routine.image} height="h-44">
-                <div />
-                <div>
-                  <h4 className="text-white font-bold text-2xl">Tu Entrenamiento</h4>
-                </div>
-              </ImageHero>
-            </button>
-          )}
+          <button onClick={() => push({ type: 'catalogo' })} className="block w-full text-left">
+            <ImageHero src={routine?.image || IMG.aumentoMasa} height="h-44">
+              <div />
+              <div>
+                <h4 className="text-white font-bold text-2xl">Tu Entrenamiento</h4>
+                <p className="text-white/80 text-sm">Explorá todos los tipos de entrenamiento</p>
+              </div>
+            </ImageHero>
+          </button>
 
           <button onClick={() => push({ type: 'reservas' })} className="block w-full text-left">
             <ImageHero src={IMG.reserva} height="h-44">
@@ -956,21 +1192,104 @@
     }
 
     function CatalogoScreen({ data, pop, push }) {
+      const cats = data.categories || [];
       return (
         <div className="min-h-screen bg-neutral-50">
-          <Header title="Catálogo de rutinas" onBack={pop} />
-          <div className="p-4 space-y-3 fade-in">
-            {data.routines.map(r => (
-              <button key={r.id} onClick={() => push({ type: 'rutina', id: r.id })} className="block w-full text-left">
-                <ImageHero src={r.image} height="h-44">
-                  <div className="flex justify-end"><Ic name="chevronRight" className="w-6 h-6 text-white" /></div>
-                  <div>
-                    <h4 className="text-white font-bold text-xl leading-tight">{r.name}</h4>
-                    <p className="text-white/80 text-xs mt-1">{r.totalSessions} sesiones disponibles</p>
+          <Header onBack={pop} />
+          <div className="p-4 fade-in">
+            <h2 className="text-neutral-900 font-bold text-3xl mb-4">Catálogo de rutinas</h2>
+            <div className="space-y-3">
+              {cats.map(c => {
+                const count = data.routines.filter(r => r.categoryId === c.id).length;
+                return (
+                  <button key={c.id} onClick={() => push({ type: 'category', id: c.id })} className="block w-full text-left">
+                    <ImageHero src={c.image} height="h-44">
+                      <div className="flex justify-end"><Ic name="chevronRight" className="w-6 h-6 text-white" /></div>
+                      <div>
+                        <h4 className="text-white font-bold text-xl leading-tight">{c.name}</h4>
+                        <p className="text-white/80 text-xs mt-1">{count} rutinas disponibles</p>
+                      </div>
+                    </ImageHero>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    function CategoryScreen({ categoryId, data, pop, push }) {
+      const cat = data.categories.find(c => c.id === categoryId);
+      const [q, setQ] = useState('');
+      const [filterWeeks, setFilterWeeks] = useState('');
+      const [sort, setSort] = useState('default');
+      if (!cat) return null;
+
+      const allRoutines = data.routines.filter(r => r.categoryId === categoryId);
+      let routines = allRoutines
+        .filter(r => !q || r.name.toLowerCase().includes(q.toLowerCase()))
+        .filter(r => !filterWeeks || r.weeks === Number(filterWeeks));
+      if (sort === 'levelAsc') routines = [...routines].sort((a,b) => a.level - b.level);
+      if (sort === 'levelDesc') routines = [...routines].sort((a,b) => b.level - a.level);
+      if (sort === 'weeksAsc') routines = [...routines].sort((a,b) => a.weeks - b.weeks);
+      if (sort === 'weeksDesc') routines = [...routines].sort((a,b) => b.weeks - a.weeks);
+
+      const allWeeks = [...new Set(allRoutines.map(r => r.weeks))].sort((a,b) => a-b);
+
+      return (
+        <div className="min-h-screen bg-neutral-50">
+          <Header onBack={pop} />
+          <div className="p-4 fade-in">
+            <h2 className="text-neutral-900 font-bold text-3xl leading-tight">{cat.name}</h2>
+            {cat.description && <p className="text-neutral-500 text-sm mt-1">{cat.description}</p>}
+
+            <div className="mt-5 relative">
+              <Ic name="search" className="w-5 h-5 text-neutral-400 absolute left-3 top-1/2 -translate-y-1/2" />
+              <input value={q} onChange={e => setQ(e.target.value)} placeholder="Nombre de entreno"
+                className="w-full bg-white border border-neutral-200 rounded-2xl pl-11 pr-4 py-3.5 text-neutral-900 placeholder-neutral-400 focus:border-green-600 outline-none shadow-sm" />
+            </div>
+
+            <div className="flex gap-2 mt-3 flex-wrap">
+              <select value={filterWeeks} onChange={e => setFilterWeeks(e.target.value)}
+                className="bg-white border border-neutral-200 rounded-full px-4 py-2 text-sm focus:border-green-600 outline-none shadow-sm">
+                <option value="">Semanas</option>
+                {allWeeks.map(w => <option key={w} value={w}>{w} semanas</option>)}
+              </select>
+              <select value={sort} onChange={e => setSort(e.target.value)}
+                className="bg-white border border-neutral-200 rounded-full px-4 py-2 text-sm focus:border-green-600 outline-none shadow-sm">
+                <option value="default">Ordenar</option>
+                <option value="levelAsc">Nivel ↑</option>
+                <option value="levelDesc">Nivel ↓</option>
+                <option value="weeksAsc">Semanas ↑</option>
+                <option value="weeksDesc">Semanas ↓</option>
+              </select>
+            </div>
+
+            <div className="mt-4 space-y-2.5">
+              {routines.length === 0 ? (
+                <Card><p className="text-neutral-500 text-center py-6 text-sm">Sin rutinas que coincidan</p></Card>
+              ) : routines.map(r => (
+                <button key={r.id} onClick={() => push({ type: 'rutina', id: r.id })}
+                  className="w-full bg-white rounded-2xl p-4 shadow-sm flex items-center gap-3 active:bg-neutral-50">
+                  <div className="shrink-0 w-12 h-14 bg-green-600 flex items-center justify-center" style={{clipPath: 'polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%)'}}>
+                    <Ic name="user" className="w-6 h-6 text-white" />
                   </div>
-                </ImageHero>
-              </button>
-            ))}
+                  <div className="flex-1 min-w-0 text-left">
+                    <p className="text-neutral-900 font-bold text-base leading-tight">{r.name}</p>
+                    <div className="flex items-center gap-2 mt-2 flex-wrap">
+                      <span className="bg-neutral-100 rounded-full px-2.5 py-1 inline-flex items-center gap-1.5">
+                        <span className="text-neutral-700 text-[10px] font-semibold">Nivel</span>
+                        {[1,2,3,4,5].map(i => (
+                          <span key={i} className={`w-1.5 h-1.5 rounded-full ${i <= r.level ? 'bg-neutral-800' : 'bg-neutral-300'}`} />
+                        ))}
+                      </span>
+                      <span className="text-neutral-500 text-xs">{r.weeks} semanas · {r.daysPerWeek} d/sem</span>
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       );
@@ -1110,7 +1429,7 @@
                     </p>
                     <div className="flex gap-2 mt-3">
                       <button onClick={() => push({ type: 'ejercicio', rutinaId, sesionN, exIdx: i })} className="text-green-600 text-xs font-semibold border border-neutral-300 rounded-lg px-3 py-1.5 active:bg-neutral-50">Ver detalles</button>
-                      <button onClick={() => push({ type: 'ejercicio', rutinaId, sesionN, exIdx: i })} className="text-green-600 text-xs font-semibold border border-neutral-300 rounded-lg px-3 py-1.5 active:bg-neutral-50">⋯</button>
+                      <button onClick={() => push({ type: 'logEjercicio', rutinaId, sesionN, exIdx: i })} className="text-green-600 text-xs font-semibold border border-neutral-300 rounded-lg px-3 py-1.5 active:bg-neutral-50">⋯</button>
                     </div>
                   </div>
                   <div className="w-24 flex flex-col items-center justify-between p-3 bg-neutral-50">
@@ -1203,6 +1522,151 @@
 
           <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-neutral-200 p-4 safe-bottom">
             <Button onClick={pop} className="w-full">Volver a la sesión</Button>
+          </div>
+        </div>
+      );
+    }
+
+    function ExerciseLogScreen({ rutinaId, sesionN, exIdx, client, data, setData, pop }) {
+      const routine = data.routines.find(r => r.id === rutinaId);
+      const sesion = routine?.sessions.find(s => s.number === sesionN);
+      const ex = sesion?.exercises[exIdx];
+      if (!ex) return null;
+
+      const logsKey = `${rutinaId}__${ex.name}`;
+      const allLogs = (client.exerciseLogs && client.exerciseLogs[logsKey]) || [];
+      const lastLog = allLogs[allLogs.length - 1];
+
+      const [sets, setSets] = useState(() => {
+        const baseCount = Math.max(Number(ex.sets) || 1, 1);
+        if (lastLog) {
+          const arr = Array.from({length: baseCount}, (_, i) => lastLog.sets[i] || { weight: '', reps: '' });
+          return arr.map(s => ({ weight: s.weight || '', reps: s.reps || '' }));
+        }
+        return Array.from({length: baseCount}, () => ({ weight: '', reps: '' }));
+      });
+
+      const updSet = (i, field, val) => setSets(s => s.map((row, j) => j === i ? { ...row, [field]: val } : row));
+      const addSet = () => setSets(s => [...s, { weight: '', reps: '' }]);
+      const removeSet = (i) => setSets(s => s.filter((_, j) => j !== i));
+
+      const save = () => {
+        const filled = sets.filter(s => s.weight !== '' || s.reps !== '');
+        if (filled.length === 0) return alert('Cargá al menos una serie con peso o repeticiones.');
+        const log = {
+          date: todayISO(), sessionN,
+          sets: sets.map(s => ({ weight: Number(s.weight) || 0, reps: Number(s.reps) || 0 })),
+        };
+        const newLogs = { ...(client.exerciseLogs || {}), [logsKey]: [...allLogs, log] };
+        const newClients = data.clients.map(c => c.id === client.id ? { ...c, exerciseLogs: newLogs } : c);
+        setData({ ...data, clients: newClients });
+        alert('Registro guardado ✓');
+        pop();
+      };
+
+      const sortedLogs = [...allLogs].sort((a,b) => b.date.localeCompare(a.date));
+      const maxEver = allLogs.length ? Math.max(...allLogs.flatMap(l => l.sets.map(s => s.weight))) : 0;
+
+      return (
+        <div className="min-h-screen bg-neutral-50 pb-28">
+          <Header title="Registrar serie" onBack={pop} />
+
+          <div className="p-4 space-y-4 fade-in">
+            <Card>
+              <p className="text-neutral-500 text-xs">Ejercicio</p>
+              <h2 className="text-neutral-900 font-bold text-xl mt-0.5">{ex.name}</h2>
+              <p className="text-neutral-500 text-xs mt-2">Plan del día: <span className="font-semibold text-neutral-700">{ex.sets} series x {ex.reps}</span></p>
+              {maxEver > 0 && (
+                <p className="text-green-600 text-xs mt-1">🏆 Récord personal: {maxEver} kg</p>
+              )}
+            </Card>
+
+            <Card>
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-neutral-500 text-xs font-semibold uppercase">Lo que hiciste hoy</p>
+                <button onClick={addSet} className="text-green-600 text-xs font-semibold flex items-center gap-1">
+                  <Ic name="plus" className="w-3.5 h-3.5" /> Agregar serie
+                </button>
+              </div>
+
+              <div className="grid grid-cols-12 gap-2 text-[10px] text-neutral-500 font-semibold uppercase mb-1 px-1">
+                <span className="col-span-2">Serie</span>
+                <span className="col-span-4">Peso (kg)</span>
+                <span className="col-span-4">Reps</span>
+                <span className="col-span-2"></span>
+              </div>
+
+              <div className="space-y-2">
+                {sets.map((s, i) => (
+                  <div key={i} className="grid grid-cols-12 gap-2 items-center">
+                    <span className="col-span-2 text-neutral-700 font-bold text-sm">#{i+1}</span>
+                    <input type="number" inputMode="decimal" step="0.5" placeholder="0" value={s.weight}
+                      onChange={e => updSet(i, 'weight', e.target.value)}
+                      className="col-span-4 bg-white border border-neutral-300 rounded-lg px-3 py-2 text-sm focus:border-green-600 outline-none" />
+                    <input type="number" inputMode="numeric" placeholder="0" value={s.reps}
+                      onChange={e => updSet(i, 'reps', e.target.value)}
+                      className="col-span-4 bg-white border border-neutral-300 rounded-lg px-3 py-2 text-sm focus:border-green-600 outline-none" />
+                    <button onClick={() => removeSet(i)} disabled={sets.length <= 1}
+                      className="col-span-2 p-1.5 text-red-500 disabled:opacity-30">
+                      <Ic name="trash" className="w-4 h-4 mx-auto" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </Card>
+
+            <div>
+              <div className="flex items-center justify-between mb-2 px-1">
+                <p className="text-neutral-500 text-xs font-semibold uppercase">Historial de progresión</p>
+                <span className="text-neutral-400 text-xs">{allLogs.length} registro{allLogs.length !== 1 ? 's' : ''}</span>
+              </div>
+              {sortedLogs.length === 0 ? (
+                <Card><p className="text-neutral-500 text-sm text-center py-4">Todavía no registraste este ejercicio. Tu primer registro va a marcar la línea base.</p></Card>
+              ) : (
+                <div className="space-y-2">
+                  {sortedLogs.map((log, i) => {
+                    const maxW = Math.max(...log.sets.map(s => s.weight));
+                    const totalReps = log.sets.reduce((a, s) => a + s.reps, 0);
+                    const volumen = log.sets.reduce((a, s) => a + s.weight * s.reps, 0);
+                    const prevLog = sortedLogs[i + 1];
+                    const prevMax = prevLog ? Math.max(...prevLog.sets.map(s => s.weight)) : null;
+                    const diff = prevMax !== null ? maxW - prevMax : null;
+                    return (
+                      <Card key={i} className="!py-3">
+                        <div className="flex justify-between items-start mb-2">
+                          <div>
+                            <p className="text-neutral-900 font-semibold text-sm">{fmtDateLong(log.date)}</p>
+                            <p className="text-neutral-500 text-xs">Sesión {log.sessionN}</p>
+                          </div>
+                          <div className="text-right">
+                            <div className="flex items-center gap-1 justify-end">
+                              <p className="text-green-600 font-bold">{maxW} kg</p>
+                              {diff !== null && diff !== 0 && (
+                                <span className={`text-[10px] font-bold ${diff > 0 ? 'text-green-600' : 'text-red-500'}`}>
+                                  {diff > 0 ? '↑' : '↓'} {Math.abs(diff)}
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-neutral-400 text-[10px]">{totalReps} reps · {volumen}kg vol.</p>
+                          </div>
+                        </div>
+                        <div className="flex gap-1.5 flex-wrap">
+                          {log.sets.map((s, j) => (
+                            <span key={j} className="text-[11px] bg-neutral-100 text-neutral-700 px-2 py-0.5 rounded font-medium">
+                              S{j+1}: <span className="text-neutral-900">{s.weight}kg × {s.reps}</span>
+                            </span>
+                          ))}
+                        </div>
+                      </Card>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-neutral-200 p-4 safe-bottom">
+            <Button onClick={save} className="w-full">Guardar registro</Button>
           </div>
         </div>
       );
@@ -1418,6 +1882,7 @@
           case 'cartera': return <CarteraScreen {...props} />;
           case 'reservas': return <ReservasScreen {...props} />;
           case 'catalogo': return <CatalogoScreen {...props} />;
+          case 'category': return <CategoryScreen categoryId={current.id} {...props} />;
           case 'misEntrenamientos': return <MisEntrenamientosScreen {...props} />;
           case 'miActividad': return <MiActividadScreen {...props} />;
           case 'historicoPesajes': return <HistoricoPesajesScreen {...props} />;
@@ -1426,6 +1891,7 @@
           case 'rutina': return <RutinaDetailScreen rutinaId={current.id} {...props} />;
           case 'sesion': return <SesionDetailScreen rutinaId={current.rutinaId} sesionN={current.sesionN} {...props} />;
           case 'ejercicio': return <ExerciseDetailScreen rutinaId={current.rutinaId} sesionN={current.sesionN} exIdx={current.exIdx} {...props} />;
+          case 'logEjercicio': return <ExerciseLogScreen rutinaId={current.rutinaId} sesionN={current.sesionN} exIdx={current.exIdx} {...props} />;
           case 'gymder': return (
             <div className="min-h-screen bg-neutral-50">
               <Header title="gymder" onBack={pop} />

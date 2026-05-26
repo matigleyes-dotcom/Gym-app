@@ -863,6 +863,360 @@
             ses(2, 'Movilidad y yoga', 'warriorPose', 'psoasStretch', 'hamstringStretch', 'pecStretch', 'yogaSerie'),
           ],
         },
+
+        // === Rutinas adicionales — variedad para todo público (r50–r84) ===
+        // --- cat1: Aumento de masa muscular ---
+        {
+          id: 'r50', categoryId: 'cat1', name: 'HIPERTROFIA PRINCIPIANTE 3X', level: 1, weeks: 5, daysPerWeek: 3, totalSessions: 15, image: IMG.aumentoMasa,
+          description: 'Full body para arrancar a ganar masa muscular sin sobrecargar el sistema. Ideal para quien recién empieza.',
+          sessions: [
+            ses(1, 'Full body A', 'calCardio', 'sentadillaGoblet', 'pressBanca', 'remoMancuerna', 'plancha'),
+            ses(2, 'Full body B', 'sentadillaPL', 'pressInclinadoMan', 'jalonPecho', 'curlBarra', 'gemelos'),
+            ses(3, 'Full body C', 'prensa', 'flexiones', 'remoT', 'curlMartillo', 'abdominales'),
+          ],
+        },
+        {
+          id: 'r51', categoryId: 'cat1', name: 'VOLUMEN ADOLESCENTE 3X', level: 1, weeks: 6, daysPerWeek: 3, totalSessions: 18, image: IMG.aumentoMasa,
+          description: 'Pensada para adolescentes de 15-18 años: cargas moderadas, foco en técnica y desarrollo armónico.',
+          sessions: [
+            ses(1, 'Empuje', 'flexiones', 'pressInclinadoMan', 'pressMilitar', 'triPolea'),
+            ses(2, 'Tracción', 'dominadasAsist', 'remoMancuerna', 'jalonPecho', 'curlBarra'),
+            ses(3, 'Piernas + core', 'sentadillaGoblet', 'prensa', 'hipThrust', 'plancha'),
+          ],
+        },
+        {
+          id: 'r52', categoryId: 'cat1', name: 'VOLUMEN MUJER GLÚTEO 4X', level: 2, weeks: 6, daysPerWeek: 4, totalSessions: 24, image: IMG.aumentoMasa,
+          description: 'Hipertrofia de glúteo y pierna manteniendo tren superior firme. Para mujeres con base previa.',
+          sessions: [
+            ses(1, 'Glúteo pesado', 'hipThrust', 'sentadillaBulgara', 'pesoMuertoRumano', 'abdCadera'),
+            ses(2, 'Tren superior tono', 'pressInclinadoMan', 'remoMancuerna', 'curlMartillo', 'pajaros'),
+            ses(3, 'Pierna cuádriceps', 'sentadillaPL', 'prensa', 'extQuad', 'zancadas'),
+            ses(4, 'Glúteo + core', 'gluteKickback', 'frogPump', 'hipThrustUni', 'plancha'),
+          ],
+        },
+        {
+          id: 'r53', categoryId: 'cat1', name: 'POWERBUILDING AVANZADO 5X', level: 4, weeks: 10, daysPerWeek: 5, totalSessions: 50, image: IMG.aumentoMasa,
+          description: 'Mix de fuerza máxima e hipertrofia. Sentadilla, banca, peso muerto + accesorios. Requiere mínimo 1 año de experiencia.',
+          sessions: [
+            ses(1, 'Banca fuerza', 'pressBanca', 'pressInclinadoBarra', 'fondos', 'pressCerrado', 'skullCrushers'),
+            ses(2, 'Sentadilla fuerza', 'sentadilla', 'sentFront', 'hackSquat', 'curlFemoral', 'gemelos'),
+            ses(3, 'Espalda volumen', 'remoPendlay', 'dominadas', 'remoT', 'pullover', 'curl21'),
+            ses(4, 'Peso muerto + hombro', 'pesoMuerto', 'pressMilitar', 'pressPush', 'elevLaterales', 'facePulls'),
+            ses(5, 'Accesorios full', 'sentadillaBulgara', 'hipThrust', 'curlBarra', 'pecDeck', 'hangingLeg'),
+          ],
+        },
+        {
+          id: 'r54', categoryId: 'cat1', name: 'TORSO-PIERNA INTERMEDIO 4X', level: 3, weeks: 8, daysPerWeek: 4, totalSessions: 32, image: IMG.aumentoMasa,
+          description: 'División Upper/Lower para quienes ya tienen base y buscan hipertrofia eficiente con 4 entrenos por semana.',
+          sessions: [
+            ses(1, 'Upper pesado', 'pressBanca', 'remoBarra', 'pressMilitar', 'curlBarra', 'triSobreCabeza'),
+            ses(2, 'Lower pesado', 'sentadilla', 'pesoMuertoRumano', 'curlFemoral', 'gemelos'),
+            ses(3, 'Upper volumen', 'pressInclinadoMan', 'jalonPecho', 'elevLaterales', 'curlPredicador', 'triPolea'),
+            ses(4, 'Lower volumen', 'hackSquat', 'hipThrust', 'extQuad', 'gemelosSentado'),
+          ],
+        },
+
+        // --- cat2: Recomposición corporal ---
+        {
+          id: 'r55', categoryId: 'cat2', name: 'RECOMP PRINCIPIANTE 3X', level: 1, weeks: 6, daysPerWeek: 3, totalSessions: 18, image: IMG.recomposicion,
+          description: 'Combina fuerza básica con cardio suave para bajar grasa y ganar tono. Para sedentarios que recién empiezan.',
+          sessions: [
+            ses(1, 'Fuerza A + cardio', 'sentadillaGoblet', 'pressInclinadoMan', 'remoMancuerna', 'cinta'),
+            ses(2, 'Fuerza B + bici', 'prensa', 'flexiones', 'jalonPecho', 'bici'),
+            ses(3, 'Full body + HIIT corto', 'hipThrust', 'pressMilitar', 'curlMartillo', 'hiit'),
+          ],
+        },
+        {
+          id: 'r56', categoryId: 'cat2', name: 'RECOMP ADOLESCENTE 4X', level: 2, weeks: 5, daysPerWeek: 4, totalSessions: 20, image: IMG.recomposicion,
+          description: 'Pensada para adolescentes activos. Trabajo metabólico + fuerza moderada.',
+          sessions: [
+            ses(1, 'Push + abs', 'pressInclinadoMan', 'fondos', 'elevLaterales', 'abdominalesBici'),
+            ses(2, 'Pull + cardio', 'dominadasAsist', 'remoMancuerna', 'curlBarra', 'eliptico'),
+            ses(3, 'Legs + core', 'sentadillaPL', 'zancadas', 'hipThrust', 'plancha'),
+            ses(4, 'HIIT + funcional', 'burpees', 'mountainClimbers', 'kettlebellSwing', 'boxJumps'),
+          ],
+        },
+        {
+          id: 'r57', categoryId: 'cat2', name: 'RECOMP ADULTO +50 3X', level: 1, weeks: 8, daysPerWeek: 3, totalSessions: 24, image: IMG.recomposicion,
+          description: 'Foco en mantener masa muscular y bajar grasa visceral. Cargas controladas y movilidad.',
+          sessions: [
+            ses(1, 'Fuerza suave A', 'sentadillaGoblet', 'pressInclinadoMan', 'remoMancuerna', 'cinta'),
+            ses(2, 'Fuerza suave B', 'prensa', 'pressHombroSentado', 'jalonPecho', 'eliptico'),
+            ses(3, 'Movilidad y core', 'birdDog', 'plancha', 'gluteBridge', 'catCow', 'foamRoller'),
+          ],
+        },
+        {
+          id: 'r58', categoryId: 'cat2', name: 'RECOMP ATLETA AVANZADO 5X', level: 4, weeks: 10, daysPerWeek: 5, totalSessions: 50, image: IMG.recomposicion,
+          description: 'Recomposición agresiva para atletas: fuerza pesada, hipertrofia y bloques de cardio intermitente.',
+          sessions: [
+            ses(1, 'Push fuerza', 'pressBanca', 'pressInclinadoBarra', 'pressCerrado', 'skullCrushers'),
+            ses(2, 'Pull fuerza', 'pesoMuerto', 'dominadas', 'remoPendlay', 'curl21'),
+            ses(3, 'Legs hipertrofia', 'sentadilla', 'hipThrust', 'extQuad', 'curlFemoral'),
+            ses(4, 'Cardio intervalado', 'biciIntervalos', 'remoErgo', 'airBike', 'battleRopes'),
+            ses(5, 'Full body metabólico', 'thrusters', 'kettlebellSwing', 'burpees', 'wallBalls'),
+          ],
+        },
+        {
+          id: 'r59', categoryId: 'cat2', name: 'RECOMP MUJER POST-EMBARAZO 3X', level: 1, weeks: 8, daysPerWeek: 3, totalSessions: 24, image: IMG.recomposicion,
+          description: 'Recuperación gradual del core y suelo pélvico, fuerza progresiva. Apto desde el alta médica.',
+          sessions: [
+            ses(1, 'Activación + caminata', 'birdDog', 'gluteBridge', 'plancha', 'cinta'),
+            ses(2, 'Fuerza suave', 'sentadillaGoblet', 'pressInclinadoMan', 'remoMancuerna', 'abdCadera'),
+            ses(3, 'Movilidad y core', 'hipThrust', 'hollowBody', 'catCow', 'pecStretch', 'eliptico'),
+          ],
+        },
+
+        // --- cat3: Tonificación ---
+        {
+          id: 'r60', categoryId: 'cat3', name: 'TONO MUJER PRINCIPIANTE 3X', level: 1, weeks: 4, daysPerWeek: 3, totalSessions: 12, image: IMG.tonificacion,
+          description: 'Rutina inicial para tonificar el cuerpo completo con cargas livianas y muchas repeticiones.',
+          sessions: [
+            ses(1, 'Glúteo y pierna', 'sentadillaGoblet', 'hipThrust', 'abdCadera', 'gemelos'),
+            ses(2, 'Brazos y espalda', 'flexiones', 'remoMancuerna', 'curlMartillo', 'pajaros'),
+            ses(3, 'Core y cardio', 'plancha', 'abdominalesBici', 'crunchPolea', 'cinta'),
+          ],
+        },
+        {
+          id: 'r61', categoryId: 'cat3', name: 'TONO ADOLESCENTE 3X', level: 1, weeks: 4, daysPerWeek: 3, totalSessions: 12, image: IMG.tonificacion,
+          description: 'Para chicos y chicas que quieren marcar el cuerpo sin levantar mucho peso.',
+          sessions: [
+            ses(1, 'Tren superior', 'flexiones', 'pressInclinadoMan', 'remoMancuerna', 'curlMartillo'),
+            ses(2, 'Tren inferior', 'sentadillaGoblet', 'zancadas', 'hipThrust', 'gemelos'),
+            ses(3, 'Core + cardio', 'plancha', 'mountainClimbers', 'abdominalesBici', 'cinta'),
+          ],
+        },
+        {
+          id: 'r62', categoryId: 'cat3', name: 'GLÚTEOS Y PIERNAS PRO 4X', level: 3, weeks: 6, daysPerWeek: 4, totalSessions: 24, image: IMG.tonificacion,
+          description: 'Plan dedicado a marcar glúteo y pierna. Cargas progresivas y volumen alto.',
+          sessions: [
+            ses(1, 'Glúteo pesado', 'hipThrust', 'sentadillaBulgara', 'pesoMuertoRumano', 'gluteKickback'),
+            ses(2, 'Cuádriceps', 'sentadilla', 'prensa', 'extQuad', 'wallSit'),
+            ses(3, 'Glúteo medio + abductores', 'abdCadera', 'frogPump', 'cableKickback', 'hipThrustUni'),
+            ses(4, 'Posterior + femoral', 'singleLegDl', 'curlFemoral', 'goodMorning', 'gemelosSentado'),
+          ],
+        },
+        {
+          id: 'r63', categoryId: 'cat3', name: 'TREN SUPERIOR ESCULPIDO 4X', level: 3, weeks: 6, daysPerWeek: 4, totalSessions: 24, image: IMG.tonificacion,
+          description: 'Para hombres que quieren ancho de hombros, pecho marcado y brazo definido.',
+          sessions: [
+            ses(1, 'Pecho y tríceps', 'pressInclinadoMan', 'aperturasPolea', 'fondos', 'triPoleaCuerda'),
+            ses(2, 'Espalda y bíceps', 'dominadas', 'remoMaqSentado', 'curlPredicador', 'curlMartillo'),
+            ses(3, 'Hombros completo', 'pressMilitar', 'elevLaterales', 'pajaros', 'remoMenton'),
+            ses(4, 'Brazos + core', 'curlBarra', 'curlScott', 'kickbackTri', 'plancha'),
+          ],
+        },
+        {
+          id: 'r64', categoryId: 'cat3', name: 'DEFINICIÓN PRO 6X', level: 4, weeks: 8, daysPerWeek: 6, totalSessions: 48, image: IMG.tonificacion,
+          description: 'PPL doble + cardio para llegar a una definición máxima. Volumen alto.',
+          sessions: [
+            ses(1, 'Push A', 'pressBanca', 'pressInclinadoMan', 'elevLaterales', 'triPolea'),
+            ses(2, 'Pull A', 'dominadas', 'remoBarra', 'curlBarra', 'facePulls'),
+            ses(3, 'Legs A', 'sentadilla', 'hipThrust', 'extQuad', 'gemelos'),
+            ses(4, 'Push B + cardio', 'pressInclinadoBarra', 'aperturasInclinadas', 'pressArnold', 'cintaCuestas'),
+            ses(5, 'Pull B + cardio', 'pesoMuertoRumano', 'jalonSupino', 'curlConcentrado', 'remoErgo'),
+            ses(6, 'Legs B + abs', 'sentadillaBulgara', 'curlFemoral', 'abWheel', 'hangingLeg'),
+          ],
+        },
+
+        // --- cat4: Acondicionamiento ---
+        {
+          id: 'r65', categoryId: 'cat4', name: 'ACONDICIONAMIENTO PRINCIPIANTE 3X', level: 1, weeks: 4, daysPerWeek: 3, totalSessions: 12, image: IMG.acondicionamiento,
+          description: 'Para arrancar a moverse: combinación de fuerza básica, cardio suave y movilidad.',
+          sessions: [
+            ses(1, 'Cuerpo entero suave', 'sentadillaGoblet', 'flexiones', 'remoMancuerna', 'cinta'),
+            ses(2, 'Movilidad + cardio', 'catCow', 'birdDog', 'plancha', 'bici'),
+            ses(3, 'Funcional intro', 'sentadillaPL', 'kettlebellSwing', 'farmer', 'eliptico'),
+          ],
+        },
+        {
+          id: 'r66', categoryId: 'cat4', name: 'ADOLESCENTE DEPORTIVO 4X', level: 2, weeks: 6, daysPerWeek: 4, totalSessions: 24, image: IMG.acondicionamiento,
+          description: 'Acondicionamiento general para adolescentes que practican deportes. Pliometría + fuerza.',
+          sessions: [
+            ses(1, 'Fuerza + pliometría', 'sentadillaPL', 'boxJumps', 'pressInclinadoMan', 'plancha'),
+            ses(2, 'Velocidad y agilidad', 'tuckJumps', 'broadJumps', 'mountainClimbers', 'cintaTrote'),
+            ses(3, 'Funcional', 'kettlebellSwing', 'farmer', 'battleRopes', 'plyoPushUps'),
+            ses(4, 'Cardio intervalado', 'saltoCuerda', 'burpees', 'remoErgo', 'bici'),
+          ],
+        },
+        {
+          id: 'r67', categoryId: 'cat4', name: 'ADULTO MAYOR 3X', level: 1, weeks: 8, daysPerWeek: 3, totalSessions: 24, image: IMG.acondicionamiento,
+          description: 'Mantenimiento de la masa muscular, equilibrio y movilidad para adultos +60.',
+          sessions: [
+            ses(1, 'Fuerza suave', 'sentadillaGoblet', 'pressInclinadoMan', 'remoMancuerna', 'gemelos'),
+            ses(2, 'Equilibrio y core', 'birdDog', 'gluteBridge', 'plancha', 'catCow'),
+            ses(3, 'Movilidad + cardio', 'foamRoller', 'pecStretch', 'hamstringStretch', 'cinta'),
+          ],
+        },
+        {
+          id: 'r68', categoryId: 'cat4', name: 'FUNCIONAL INTERMEDIO 4X', level: 3, weeks: 6, daysPerWeek: 4, totalSessions: 24, image: IMG.acondicionamiento,
+          description: 'Trabajo funcional con kettlebells, TRX y peso corporal. Mejora fuerza, resistencia y movilidad.',
+          sessions: [
+            ses(1, 'Empuje funcional', 'trxPushUp', 'kettlebellSwing', 'plyoPushUps', 'plancha'),
+            ses(2, 'Tracción funcional', 'trxRow', 'remoInvertido', 'curlCable', 'hollowRocks'),
+            ses(3, 'Piernas funcional', 'sentadillaGoblet', 'trxSquat', 'sledPush', 'farmer'),
+            ses(4, 'Metcon', 'thrusters', 'wallBalls', 'burpees', 'battleRopes'),
+          ],
+        },
+        {
+          id: 'r69', categoryId: 'cat4', name: 'CONDICIÓN ATLÉTICA AVANZADA 5X', level: 4, weeks: 8, daysPerWeek: 5, totalSessions: 40, image: IMG.acondicionamiento,
+          description: 'Para deportistas: fuerza + pliometría + olímpicos + metcons largos.',
+          sessions: [
+            ses(1, 'Fuerza pesada', 'sentadilla', 'pesoMuerto', 'pressBanca', 'dominadas'),
+            ses(2, 'Olímpicos + power', 'cleanJerk', 'snatch', 'pressPush', 'broadJumps'),
+            ses(3, 'Pliometría + agilidad', 'boxJumps', 'tuckJumps', 'plyoPushUps', 'bearCrawls'),
+            ses(4, 'Metcon largo', 'thrusters', 'wallBalls', 'devilPress', 'manMaker'),
+            ses(5, 'Endurance', 'rowing2000', 'airBike', 'cintaCuestas', 'farmer'),
+          ],
+        },
+
+        // --- cat5: Adelgazar / Oxidación de grasa ---
+        {
+          id: 'r70', categoryId: 'cat5', name: 'ADELGAZAR BAJO IMPACTO 3X', level: 1, weeks: 4, daysPerWeek: 3, totalSessions: 12, image: IMG.adelgazar,
+          description: 'Caminata, bici y fuerza suave para empezar a perder grasa sin estresar articulaciones.',
+          sessions: [
+            ses(1, 'Caminata + fuerza A', 'cinta', 'sentadillaGoblet', 'pressInclinadoMan', 'remoMancuerna'),
+            ses(2, 'Bici + fuerza B', 'bici', 'prensa', 'jalonPecho', 'curlMartillo'),
+            ses(3, 'Eliptico + core', 'eliptico', 'plancha', 'abdominalesBici', 'gluteBridge'),
+          ],
+        },
+        {
+          id: 'r71', categoryId: 'cat5', name: 'ADELGAZAR MUJER 4X', level: 2, weeks: 6, daysPerWeek: 4, totalSessions: 24, image: IMG.adelgazar,
+          description: 'Cardio + tono para mujeres que buscan perder peso manteniendo curvas.',
+          sessions: [
+            ses(1, 'Glúteo + cardio', 'hipThrust', 'abdCadera', 'sentadillaBulgara', 'cinta'),
+            ses(2, 'Tren superior + bici', 'pressInclinadoMan', 'remoMancuerna', 'curlMartillo', 'bici'),
+            ses(3, 'HIIT + core', 'hiit', 'plancha', 'mountainClimbers', 'planchaLateral'),
+            ses(4, 'Caminata + tono', 'cintaCuestas', 'sentadillaGoblet', 'pressHombroSentado', 'abdominalesBici'),
+          ],
+        },
+        {
+          id: 'r72', categoryId: 'cat5', name: 'ADELGAZAR ADOLESCENTE 4X', level: 2, weeks: 4, daysPerWeek: 4, totalSessions: 16, image: IMG.adelgazar,
+          description: 'Plan dinámico para adolescentes que quieren bajar peso. Mucho movimiento, poca permanencia.',
+          sessions: [
+            ses(1, 'HIIT + abs', 'jumpingJacks', 'burpees', 'mountainClimbers', 'abdominalesBici'),
+            ses(2, 'Fuerza + cardio', 'sentadillaGoblet', 'flexiones', 'remoMancuerna', 'eliptico'),
+            ses(3, 'Funcional', 'kettlebellSwing', 'boxJumps', 'battleRopes', 'plancha'),
+            ses(4, 'Cardio largo', 'cinta', 'bici', 'saltoCuerda', 'cardiodance'),
+          ],
+        },
+        {
+          id: 'r73', categoryId: 'cat5', name: 'HIIT MÁXIMA QUEMA 5X', level: 4, weeks: 6, daysPerWeek: 5, totalSessions: 30, image: IMG.adelgazar,
+          description: 'Programa intenso para perder grasa rápido. 5 sesiones de HIIT semanales. Requiere buena base.',
+          sessions: [
+            ses(1, 'HIIT cuerpo entero', 'burpees', 'thrusters', 'wallBalls', 'mountainClimbers'),
+            ses(2, 'HIIT pierna + glúteo', 'sentadillaSalto', 'boxJumps', 'hipThrust', 'kettlebellSwing'),
+            ses(3, 'HIIT cardio', 'airBike', 'remoErgo', 'jumpingJacks', 'tuckJumps'),
+            ses(4, 'HIIT funcional', 'devilPress', 'manMaker', 'battleRopes', 'farmer'),
+            ses(5, 'Endurance + abs', 'cintaCuestas', 'eliptico', 'plancha', 'hangingLeg'),
+          ],
+        },
+        {
+          id: 'r74', categoryId: 'cat5', name: 'ADELGAZAR ADULTO MAYOR 3X', level: 1, weeks: 8, daysPerWeek: 3, totalSessions: 24, image: IMG.adelgazar,
+          description: 'Plan progresivo, sin impacto, para reducir grasa en adultos +60 con seguridad articular.',
+          sessions: [
+            ses(1, 'Caminata + fuerza suave', 'cinta', 'sentadillaGoblet', 'pressInclinadoMan', 'gluteBridge'),
+            ses(2, 'Bici + movilidad', 'bici', 'birdDog', 'catCow', 'pecStretch'),
+            ses(3, 'Eliptico + core', 'eliptico', 'plancha', 'crunchInvertido', 'hamstringStretch'),
+          ],
+        },
+
+        // --- cat6: Aeróbico ---
+        {
+          id: 'r75', categoryId: 'cat6', name: 'CARDIO INICIAL 3X', level: 1, weeks: 4, daysPerWeek: 3, totalSessions: 12, image: IMG.aerobico,
+          description: 'Tres sesiones semanales de cardio progresivo para mejorar el sistema cardiovascular.',
+          sessions: [
+            ses(1, 'Cinta suave', 'cinta', 'movilidadHombro', 'catCow'),
+            ses(2, 'Bici intervalo suave', 'bici', 'birdDog', 'gluteBridge'),
+            ses(3, 'Eliptico', 'eliptico', 'plancha', 'foamRoller'),
+          ],
+        },
+        {
+          id: 'r76', categoryId: 'cat6', name: 'ENDURANCE INTERMEDIO 4X', level: 3, weeks: 6, daysPerWeek: 4, totalSessions: 24, image: IMG.aerobico,
+          description: 'Trabaja la resistencia con intervalos largos en distintas máquinas.',
+          sessions: [
+            ses(1, 'Cinta cuestas', 'cintaCuestas', 'plancha', 'mountainClimbers'),
+            ses(2, 'Bici intervalos', 'biciIntervalos', 'abdominalesBici', 'gluteBridge'),
+            ses(3, 'Remo 2000m', 'rowing2000', 'plancha', 'birdDog'),
+            ses(4, 'Stair climber', 'stairClimber', 'sentadillaGoblet', 'gemelos'),
+          ],
+        },
+        {
+          id: 'r77', categoryId: 'cat6', name: 'CARDIO ANTI-CELULITIS MUJER 4X', level: 2, weeks: 6, daysPerWeek: 4, totalSessions: 24, image: IMG.aerobico,
+          description: 'Cardio + ejercicios localizados de glúteo y pierna para mejorar la textura de la piel.',
+          sessions: [
+            ses(1, 'Cinta + glúteo', 'cintaCuestas', 'hipThrust', 'abdCadera', 'gluteKickback'),
+            ses(2, 'Bici + pierna', 'biciIntervalos', 'sentadillaBulgara', 'curlFemoral', 'gemelos'),
+            ses(3, 'Eliptico + core', 'eliptico', 'plancha', 'abdominalesBici', 'frogPump'),
+            ses(4, 'HIIT + glúteo', 'hiit', 'gluteBridge', 'cableKickback', 'planchaLateral'),
+          ],
+        },
+        {
+          id: 'r78', categoryId: 'cat6', name: 'CARDIO ADULTO MAYOR 3X', level: 1, weeks: 8, daysPerWeek: 3, totalSessions: 24, image: IMG.aerobico,
+          description: 'Cardio suave y de bajo impacto para mejorar la resistencia y la salud cardiovascular en +60.',
+          sessions: [
+            ses(1, 'Cinta caminata', 'cinta', 'pecStretch', 'hamstringStretch'),
+            ses(2, 'Bici estacionaria', 'bici', 'catCow', 'birdDog'),
+            ses(3, 'Eliptico suave', 'eliptico', 'foamRoller', 'movilidadHombro'),
+          ],
+        },
+        {
+          id: 'r79', categoryId: 'cat6', name: 'CARDIO + CORE ATLETA 5X', level: 4, weeks: 8, daysPerWeek: 5, totalSessions: 40, image: IMG.aerobico,
+          description: 'Para deportistas: bloques largos de cardio + trabajo profundo de core.',
+          sessions: [
+            ses(1, 'Cinta inclinada larga', 'cintaCuestas', 'abWheel', 'hangingLeg'),
+            ses(2, 'Remo 2000m + core', 'rowing2000', 'plancha', 'dragonFlag'),
+            ses(3, 'Air bike intervalos', 'airBike', 'russianTwists', 'hollowBody'),
+            ses(4, 'Stair climber largo', 'stairClimber', 'toesToBar', 'vUps'),
+            ses(5, 'Mix cardio', 'biciIntervalos', 'remoErgo', 'cinta', 'plancha'),
+          ],
+        },
+
+        // --- cat7: Diversión, desconexión ---
+        {
+          id: 'r80', categoryId: 'cat7', name: 'ZUMBA & BAILE 3X', level: 1, weeks: 4, daysPerWeek: 3, totalSessions: 12, image: IMG.diversion,
+          description: 'Clases de baile y zumba para soltar el cuerpo, divertirse y quemar calorías sin que se sienta entrenamiento.',
+          sessions: [
+            ses(1, 'Zumba clásica', 'zumba', 'cardiodance', 'pecStretch'),
+            ses(2, 'Cardio dance', 'cardiodance', 'zumba', 'hamstringStretch'),
+            ses(3, 'Mix bailable', 'zumba', 'cardiodance', 'catCow', 'foamRoller'),
+          ],
+        },
+        {
+          id: 'r81', categoryId: 'cat7', name: 'BOXEO RECREATIVO INT 3X', level: 2, weeks: 6, daysPerWeek: 3, totalSessions: 18, image: IMG.diversion,
+          description: 'Boxeo no competitivo: técnica + acondicionamiento + diversión. Genial para descargar.',
+          sessions: [
+            ses(1, 'Técnica y saquito', 'shadowBoxing', 'saquito', 'saltoCuerda', 'plancha'),
+            ses(2, 'Sparring + condición', 'peraLoca', 'peraSalon', 'burpees', 'abdominalesBici'),
+            ses(3, 'Boxeo + cardio', 'shadowBoxing', 'saquito', 'cintaTrote', 'planchaLateral'),
+          ],
+        },
+        {
+          id: 'r82', categoryId: 'cat7', name: 'YOGA & MOVILIDAD 3X', level: 1, weeks: 6, daysPerWeek: 3, totalSessions: 18, image: IMG.diversion,
+          description: 'Sesiones de yoga, estiramientos profundos y movilidad para relajar mente y cuerpo.',
+          sessions: [
+            ses(1, 'Saludo al sol', 'yogaSerie', 'downwardDog', 'warriorPose', 'childPose'),
+            ses(2, 'Apertura cadera', 'psoasStretch', 'hamstringStretch', 'cobraPose', 'catCow'),
+            ses(3, 'Movilidad total', 'movilidadHombro', 'foamRoller', 'pecStretch', 'childPose'),
+          ],
+        },
+        {
+          id: 'r83', categoryId: 'cat7', name: 'AQUAGYM ADULTO MAYOR 3X', level: 1, weeks: 8, daysPerWeek: 3, totalSessions: 24, image: IMG.diversion,
+          description: 'Ejercicio acuático para adultos mayores: bajo impacto, sociabilidad y diversión.',
+          sessions: [
+            ses(1, 'Aqua caminata', 'aquaCardio', 'aquaResist'),
+            ses(2, 'Aqua running', 'aquaRunning', 'aquaResist'),
+            ses(3, 'Aqua circuit', 'aquaJumping', 'aquaCardio', 'aquaResist'),
+          ],
+        },
+        {
+          id: 'r84', categoryId: 'cat7', name: 'FUNCIONAL DIVERTIDO ADOLESCENTE 3X', level: 2, weeks: 4, daysPerWeek: 3, totalSessions: 12, image: IMG.diversion,
+          description: 'Circuitos lúdicos para adolescentes. Sin máquinas, sólo cuerpo y un poco de pesa.',
+          sessions: [
+            ses(1, 'Circuito juego A', 'jumpingJacks', 'boxJumps', 'kettlebellSwing', 'plancha'),
+            ses(2, 'Circuito juego B', 'broadJumps', 'mountainClimbers', 'flexiones', 'sentadillaSalto'),
+            ses(3, 'Race day', 'saltoCuerda', 'burpees', 'bearCrawls', 'battleRopes'),
+          ],
+        },
       ],
       payments: [
         { id: 'p1', clientId: 'c1', amount: 18000, date: '2026-02-05', concept: 'Cuota Febrero', method: 'Transferencia' },
